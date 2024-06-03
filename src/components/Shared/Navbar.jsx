@@ -3,6 +3,7 @@ import logo from "../../assets/logo/docy-2x.png"
 // import 'react-tooltip/dist/react-tooltip.css'
 import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
+import { IoMdNotificationsOutline } from "react-icons/io";
 // import { Tooltip } from "react-tooltip";
 // import { Tooltip } from 'react-tooltip'
 
@@ -24,15 +25,18 @@ const Navbar = () => {
     setOpen(!open);
   }
 
-  const navLink = <div className="flex items-center">
-    <li className="font-bold text-sm hover:text-[#6d46c7] hover:border-b border-b-[#b18b5e]"><NavLink to='/' className={({ isActive }) => isActive ? '  text-[#6d46c7]' : 'text-[#131313CC] hover:text-[#6d46c7]'}>Home</NavLink></li>
+  const navLink = <div className="flex items-center gap-5">
+    <NavLink to='/' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#F63E7B]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>Home</li></NavLink>
 
-    <li className="font-bold text-sm hover:text-[#b18b5e] shadow-none hover:border-b border-b-[#6d46c7] bg-white"><NavLink to='/addFood' className={({ isActive }) => isActive ? 'text-[#6d46c7] ' : 'hover:text-[#6d46c7] text-[#131313CC]'}>Add Food</NavLink></li>
+    <NavLink to='/add' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#6d46c7]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>Membership</li></NavLink>
 
-    <li className="font-bold text-sm hover:text-[#6d46c7] shadow-none hover:border-b border-b-[#b18b5e] bg-white"><NavLink to='/myFood' className={({ isActive }) => isActive ? 'text-[#6d46c7] ' : 'hover:text-[#6d46c7] text-[#131313CC]'}>Manage My Foods</NavLink></li>
+    <NavLink to='/add' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#F63E7B]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>About Us</li></NavLink>
+    
+    <div className="-mr-16 ml-5">
+    <IoMdNotificationsOutline className="w-12 h-12" />
+    </div>
 
-    <li className="font-bold text-sm hover:text-[#6d46c7] shadow-none hover:border-b border-b-[#6d46c7] bg-white"><NavLink to='/available' className={({ isActive }) => isActive ? 'text-[#6d46c7] ' : 'hover:text-[#6d46c7] text-[#131313CC]'}>Available Foods</NavLink></li>
-    <li className="font-bold text-sm hover:text-[#6d46c7] shadow-none hover:border-b border-b-[#6d46c7] bg-white"><NavLink to='/requestedFood' className={({ isActive }) => isActive ? 'text-[#ffb606] ' : 'hover:text-[#6d46c7] text-[#131313CC]'}>My Food Request</NavLink></li>
+    
 
 
 
@@ -41,7 +45,8 @@ const Navbar = () => {
 
   </div>
   return (
-    <div className="navbar container px-4 mx-auto mt-5">
+    <div className="bg-[#FFF8F5] py-5">
+      <div className="navbar container px-4 mx-auto mt-5">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -69,17 +74,17 @@ const Navbar = () => {
             {
               open &&
               <div className=" px-4 shadow-lg py-2 flex flex-col items-center space-y-1">
-                <div className="border-b border-blue-500">
+                <div className="text-[#F63E7B]">
                   {user?.displayName}
                 </div>
                 <div className="">
                   <Link to='/'>
-                    <button onClick={handleLogOut} className="font-semibold text-xs lg:text-base px-3 border-2 border-blue-500">Sign out</button>
+                    <button onClick={handleLogOut} className="font-semibold text-xs lg:text-base px-7 border-2 border-[#F63E7B]">Sign out</button>
                   </Link>
                 </div>
                 <div>
                   <Link to='/dashboard'>
-                    <button className="font-semibold text-xs lg:text-base px-3 border-2 border-blue-500">Dashboard</button>
+                    <button className="font-semibold text-xs lg:text-base px-5 border-2 border-[#F63E7B]">Dashboard</button>
                   </Link>
                 </div>
               </div>
@@ -95,6 +100,7 @@ const Navbar = () => {
 
       </div>
     </div >
+    </div>
   );
 };
 
