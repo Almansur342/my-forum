@@ -127,9 +127,9 @@ const Login = () => {
             {errors.password && <span className="text-red-500">This field is required</span>}
           </div>
         <div className="form-control">
-          <button className="btn mt-6 bg-[#6d46c7] text-white text-base lg:text-lg mb-3 uppercase">Sign In</button>
+          <button className="btn mt-6 bg-[#F73E7B] text-white text-base lg:text-lg mb-3 uppercase">Sign In</button>
         </div>
-        <Link className="flex justify-center" to="/register">New here? <span className="text-[#9a7ae1] ml-1">Create an account</span></Link>
+        <Link className="flex justify-center" to="/register">New here? <span className="text-[#F63E7B] ml-1">Create an account</span></Link>
         <div className="divider">OR</div>
       </form>
       <div className="justify-around flex gap-1 lg:gap-5">

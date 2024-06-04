@@ -19,7 +19,7 @@ const Banner = () => {
 				<FaSearch></FaSearch>
 			</button>
 		</span>
-		<input type="search" name="Search" placeholder="Search..." className="w-40 border border-[#F73E7B] py-2 pl-10 text-base rounded-md sm:w-auto" />
+		<input type="search" name="Search" placeholder="Search by tags" className="w-40 border border-[#F73E7B] py-2 pl-10 text-base rounded-md sm:w-auto" />
 	</div>
 </fieldset>
 		</div>
