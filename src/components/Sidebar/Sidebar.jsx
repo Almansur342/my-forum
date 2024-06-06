@@ -70,11 +70,28 @@ const Sidebar = () => {
           <div className='flex flex-col justify-between flex-1 mt-6'>
             {/* Conditional toggle button here.. */}
 
-            {/*  Menu Items */}
+          
             <nav>
               {/* Statistics */}
               <NavLink
                 to='/dashboard'
+                end
+                className={({ isActive }) =>
+                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-[#F63E7B] ${
+                    isActive ? 'bg-gray-300  text-[#F63E7B]' : ''
+                  }`
+                }
+              >
+               <BsGraphUp className='h-5 w-5'></BsGraphUp>
+
+                <span className='mx-4 font-medium'>Statistics</span>
+              </NavLink>
+
+
+
+              {/* my Profile */}
+              <NavLink
+                to='myProfile'
                 end
                 className={({ isActive }) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-[#F63E7B] ${
@@ -89,7 +106,7 @@ const Sidebar = () => {
 
               {/* Add Room */}
               <NavLink
-                to='add-room'
+                to='add-post'
                 className={({ isActive }) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-[#F63E7B] ${
                     isActive ? 'bg-gray-300]' : ''
@@ -102,7 +119,7 @@ const Sidebar = () => {
               </NavLink>
               {/* My Listing */}
               <NavLink
-                to='my-listings'
+                to='my-post'
                 className={({ isActive }) =>
                   `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300 hover:text-[#F63E7B] ${
                     isActive ? 'bg-gray-300  text-[#F63E7B]' : ''
