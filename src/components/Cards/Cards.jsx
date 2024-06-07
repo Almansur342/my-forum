@@ -9,16 +9,16 @@ import { SlLike } from "react-icons/sl";
 const Cards = ({post}) => {
   const {Author,post_title,tags_name,createdAt,voteDifference} = post || {}
   
-  // console.log('Created At:', createdAt);
-  // const parsedDate = new Date(createdAt);
-  // console.log('Parsed Date:', parsedDate);
+  console.log('Created At:', createdAt);
+  const parsedDate = new Date(createdAt);
+  console.log('Parsed Date:', parsedDate);
 
-  // let timeAgo = 'Invalid date';
-  // try {
-  //   timeAgo = formatDistanceToNow(parsedDate, { addSuffix: true });
-  // } catch (error) {
-  //   console.error('Error formatting date:', error);
-  // }
+  let timeAgo = 'Invalid date';
+  try {
+    timeAgo = formatDistanceToNow(parsedDate, { addSuffix: true });
+  } catch (error) {
+    console.error('Error formatting date:', error);
+  }
   return (
     <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow hover:scale-105 hover:shadow-2xl">
 	<div className="flex space-x-4">
