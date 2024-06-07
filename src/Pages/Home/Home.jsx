@@ -1,3 +1,4 @@
+import AllPosts from "../../components/AllPosts/AllPosts";
 import Banner from "../../components/Banner/Banner";
 import Tags from "../../components/Tags/Tags";
 
@@ -6,6 +7,7 @@ const Home = () => {
     <div>
       <Banner></Banner>
       <Tags></Tags>
+      <AllPosts></AllPosts>
     </div>
   );
 };

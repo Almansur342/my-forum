@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import useAuth from "../../../../Hooks/useAuth";
+
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosCommon from './../../../../Hooks/useAxiosCommon';
@@ -21,10 +21,9 @@ const AddPost = () => {
   });
   const axiosCommon = useAxiosCommon()
   const { register, handleSubmit, formState: { errors },} = useForm();
-  const { user} = useAuth()
+
   const [tags_name, setTags_name] = useState('');
-  const currentTime = new Date();
-  const timeString = `${currentTime.getHours()}:${currentTime.getMinutes()}:${currentTime.getSeconds()}`;
+
   
   const handleTags = (event) => {
     setTags_name(event.target.value);
@@ -53,12 +52,13 @@ const AddPost = () => {
         downVote,
         post_description,
         tags_name,
+        createdAt: new Date().toISOString(), 
         Author:{
           image: author_image,
           name: author_name,
           email: author_email
         },
-        time: timeString
+        
       }
       console.log(info)
       await mutateAsync(info)
