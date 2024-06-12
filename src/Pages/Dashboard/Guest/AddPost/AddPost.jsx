@@ -5,8 +5,11 @@ import { useMutation } from "@tanstack/react-query";
 import useAxiosCommon from './../../../../Hooks/useAxiosCommon';
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../../../Hooks/useAuth";
 
 const AddPost = () => {
+  const {user}= useAuth()
+  const hostEmail = user.email
   const navigate = useNavigate()
   const Toast = Swal.mixin({
     toast: true,
@@ -52,6 +55,7 @@ const AddPost = () => {
         downVote,
         post_description,
         tags_name,
+        hostEmail,
         createdAt: new Date().toISOString(), 
         Author:{
           image: author_image,

@@ -5,13 +5,18 @@ import LoadingSpinner from "../Spinner/LoadingSpinner";
 import Cards from "../Cards/Cards";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { element } from "prop-types";
+import useSearch from "../../Hooks/useSearch";
+
 
 const AllPosts = () => {
   const [itemsPerPage, setItemsPerPage] = useState(3)
+  const {searchQuery}= useSearch()
+  console.log(searchQuery)
   const [PageCount,setPageCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
   const [sort, setSort] = useState(false)
   const axiosCommon = useAxiosCommon()
+
 
   const {data:posts=[], isLoading,refetch} = useQuery({
     queryKey: ['posts',sort,currentPage,itemsPerPage],
