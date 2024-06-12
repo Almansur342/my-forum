@@ -4,10 +4,22 @@ import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import useAuth from "../../../../Hooks/useAuth";
 import LoadingSpinner from "../../../../components/Spinner/LoadingSpinner";
 import PostDataRow from "../../../../components/PostDataRow/PostDataRow";
+import Swal from "sweetalert2";
 
 const MyPost = () => {
   const {user} = useAuth()
   const axiosCommon = useAxiosCommon()
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
   const {data:posts=[], isLoading,refetch} = useQuery({
     queryKey: ['my-posts', user?.email],
     queryFn: async()=>{
@@ -16,6 +28,26 @@ const MyPost = () => {
     }
   })
   console.log(posts);
+
+  const handleDelete = async(id) =>{
+    try{
+        const {data} = await axiosCommon.delete(`/deletePost/${id}`)
+        if(data.deletedCount > 0){
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your post has been deleted.",
+            icon: "success"
+          });
+    }
+    refetch(posts)
+  } catch (err) {
+    console.log(err.message)
+    Toast.fire({
+      icon: 'error',
+      title: `${err.message}`
+    })
+  }
+}
   if(isLoading) return <LoadingSpinner></LoadingSpinner>
   return (
     <>
@@ -33,7 +65,7 @@ const MyPost = () => {
                   <tr>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white border-b border-gray-200  text-left font-medium uppercase text-[#F73E7B]'
+                      className='px-5 py-3 bg-white border-b border-gray-200 text-left font-medium uppercase text-[#F73E7B]'
                     >
                       Title
                     </th>
@@ -66,7 +98,7 @@ const MyPost = () => {
                 </thead>
                 <tbody>
                   {
-                    posts.map(post=><PostDataRow key={post._id} post={post} refetch={refetch}></PostDataRow>)
+                    posts.map(post=><PostDataRow key={post._id} post={post} refetch={refetch} handleDelete={handleDelete}></PostDataRow>)
                   }
                 </tbody>
               </table>

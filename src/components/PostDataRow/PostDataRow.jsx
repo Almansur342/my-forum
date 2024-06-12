@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
 
-
-const PostDataRow = ({ post, refetch }) => {
-  const {post_title, upVote, downVote} = post || {}
-
+const PostDataRow = ({ post,handleDelete}) => {
+  const {post_title, upVote, downVote,_id} = post || {}
+  
   return (
     <tr>
-      
       <td className='px-5 py-5 border-b border-gray-200 bg-white'>
         <p className='text-gray-900 whitespace-no-wrap font-medium'>{post_title}</p>
       </td>
@@ -18,7 +16,7 @@ const PostDataRow = ({ post, refetch }) => {
       </td>
      
       <td className='px-5 py-5 border-b border-gray-200 bg-white'>
-      <button className="bg-[#F73E7B] px-3 py-1 font-medium rounded text-white text-sm lg:text-sm uppercase">delete</button>
+      <button onClick={()=>handleDelete(_id)} className="bg-[#F73E7B] px-3 py-1 font-medium rounded text-white text-sm lg:text-sm uppercase">delete</button>
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white'>
       <button className="bg-[#F73E7B] px-3 py-1 font-medium rounded text-white text-sm lg:text-sm uppercase">Comment</button>
