@@ -11,6 +11,7 @@ import Statistics from "../Pages/Dashboard/Common/Statistics";
 import MyProfile from "../Pages/Dashboard/Guest/MyProfile/MyProfile";
 import AddPost from "../Pages/Dashboard/Guest/AddPost/AddPost";
 import MyPost from "../Pages/Dashboard/Guest/MyPost/MyPost";
+import MyComments from "../Pages/Comments/MyComments";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element:<Home></Home>
+      },
+      {
+        path:'/my-comments',
+        element:<MyComments></MyComments>
       }
     ]
   },

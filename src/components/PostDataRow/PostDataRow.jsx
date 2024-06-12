@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 const PostDataRow = ({ post,handleDelete}) => {
   const {post_title, upVote, downVote,_id} = post || {}
@@ -19,7 +20,7 @@ const PostDataRow = ({ post,handleDelete}) => {
       <button onClick={()=>handleDelete(_id)} className="bg-[#F73E7B] px-3 py-1 font-medium rounded text-white text-sm lg:text-sm uppercase">delete</button>
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white'>
-      <button className="bg-[#F73E7B] px-3 py-1 font-medium rounded text-white text-sm lg:text-sm uppercase">Comment</button>
+      <Link to='/my-comments' className="bg-[#F73E7B] px-3 py-1 font-medium rounded text-white text-sm lg:text-sm uppercase">Comment</Link>
       </td>
     </tr>
   )

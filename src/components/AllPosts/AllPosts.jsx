@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import useAxiosCommon from './../../Hooks/useAxiosCommon';
 import LoadingSpinner from "../Spinner/LoadingSpinner";
 import Cards from "../Cards/Cards";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
-import { element } from "prop-types";
-import useSearch from "../../Hooks/useSearch";
+
+import { useSearch } from "../../Hooks/useSearch";
 
 
-const AllPosts = () => {
+
+const AllPosts = forwardRef((props,ref) => {
   const [itemsPerPage, setItemsPerPage] = useState(3)
   const {searchQuery}= useSearch()
   console.log(searchQuery)
@@ -19,9 +20,9 @@ const AllPosts = () => {
 
 
   const {data:posts=[], isLoading,refetch} = useQuery({
-    queryKey: ['posts',sort,currentPage,itemsPerPage],
+    queryKey: ['posts',sort,currentPage,itemsPerPage,searchQuery],
     queryFn: async()=>{
-    const {data} = await axiosCommon.get(`/posts?sort=${sort}&page=${currentPage}&size=${itemsPerPage}`)
+    const {data} = await axiosCommon.get(`/posts?sort=${sort}&page=${currentPage}&size=${itemsPerPage}&search=${searchQuery}`)
     return data
     
     },
@@ -59,7 +60,7 @@ const AllPosts = () => {
 
   if(isLoading) return <LoadingSpinner></LoadingSpinner>
   return (
-    <div className=" my-20 py-5">
+    <div ref={ref} className=" my-20 py-5">
       <h1 className="text-3xl font-bold text-center mb-2">Explore All <span className="text-[#F73E7B]">Posts</span></h1>
       <p className="text-center mb-4">Dive into diverse discussions on our forum. Connect, share, and engage with a <br /> vibrant community of voices.</p>
       <div className="flex justify-center mb-3 ">
@@ -108,6 +109,7 @@ const AllPosts = () => {
       </div>
     </div>
   );
-};
+});
+AllPosts.displayName = 'AllPosts';
 
 export default AllPosts;

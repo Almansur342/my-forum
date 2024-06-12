@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { createContext, useContext, useState } from 'react';
 
-const useSearch = () => {
-  const [searchQuery, setSearchQuery] =useState('');
-  // console.log(searchQuery)
-   const updateSearchQuery = (query) =>{
-    setSearchQuery(query);
-   }
-  return {
-    searchQuery,
-    updateSearchQuery
-  }
+const SearchContext = createContext();
+
+export const useSearch = () => {
+  return useContext(SearchContext);
 };
 
-export default useSearch;
+export const SearchProvider = ({ children }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const updateSearchQuery = (query) => {
+    setSearchQuery(query);
+  };
+
+  return (
+    <SearchContext.Provider value={{ searchQuery, updateSearchQuery }}>
+      {children}
+    </SearchContext.Provider>
+  );
+};

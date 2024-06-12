@@ -1,13 +1,20 @@
 import { FaSearch } from 'react-icons/fa';
 import banner from '../../assets/logo/forum-banner.png'
-import useSearch from '../../Hooks/useSearch';
-const Banner = () => {
+import { useSearch } from '../../Hooks/useSearch';
+import { useRef } from 'react';
+import AllPosts from '../AllPosts/AllPosts';
+
+const Banner = ({allPostsRef}) => {
 	const {updateSearchQuery} = useSearch();
-	const handleSearch = e => {
-		e.preventDefault();
-		const text = e.target.search.value;
-		updateSearchQuery(text);
-	}
+	const handleSearch = (e) => {
+    e.preventDefault();
+    const text = e.target.search.value;
+    updateSearchQuery(text);
+
+		if (allPostsRef.current) {
+      allPostsRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 	return (
 		<div className="bg-[#FFF8F5] pb-10 pt-5">
 			<section className="container mx-auto px-4">
@@ -33,6 +40,7 @@ const Banner = () => {
 					</div>
 				</div>
 			</section>
+			
 		</div>
 	);
 };
