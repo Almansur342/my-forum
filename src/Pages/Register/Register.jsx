@@ -27,7 +27,7 @@ const Register = () => {
   });
 
 
-  const {createUser,updateUserProfile,signInWithGoogle} = useAuth()
+  const {createUser,updateUserProfile,signInWithGoogle,saveUser} = useAuth()
     const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -60,8 +60,11 @@ const Register = () => {
      
      try {
         const result = await createUser(email,password)
-        console.log(result)
-        await  updateUserProfile(name,photo)
+        // console.log(result)
+        await updateUserProfile(name,photo);
+        await saveUser(result.user)
+        
+     
         // const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {email: result?.user?.email},{withCredentials:true})
         // console.log(data)
         Swal.fire({
@@ -83,12 +86,12 @@ const Register = () => {
   const handleGoogleLogin = async() => {
     try {
       const result = await signInWithGoogle()
-      console.log(result.user)
+      // console.log(result.user)
       // const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {email: result?.user?.email},{withCredentials:true})
       // console.log(data)
       Swal.fire({
         title: 'success',
-        text: 'User Logged In successfully',
+        text: 'User created In successfully',
         icon: 'success',
         confirmButtonText: 'Cool'
       })

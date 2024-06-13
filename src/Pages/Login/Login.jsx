@@ -35,24 +35,26 @@ const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, formState: { errors },} = useForm();
-  const { signIn, signInWithGoogle,} = useAuth()
+  const { signIn, signInWithGoogle,saveUser} = useAuth()
 
   const onSubmit = async(data) =>{
     const {email,password} = data;
     console.log(email,password);
-     signIn(email, password)
+     
      try {
-      const result = await signInWithGoogle()
+      const result = signIn(email, password)
       console.log(result.user)
       // const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {email: result?.user?.email},{withCredentials:true})
       // console.log(data)
-      Swal.fire({
-        title: 'success',
-        text: 'User Logged In successfully',
-        icon: 'success',
-        confirmButtonText: 'Cool'
-      })
-      navigate(location?.state ? location.state : '/')
+      if(result.user){
+        Swal.fire({
+          title: 'success',
+          text: 'User Logged In successfully',
+          icon: 'success',
+          confirmButtonText: 'Cool'
+        })
+        navigate(location?.state ? location.state : '/')
+      }
     } catch (err) {
       console.log(err)
       Toast.fire({
@@ -66,6 +68,7 @@ const Login = () => {
   const handleGoogleLogin = async() => {
     try {
       const result = await signInWithGoogle()
+      await saveUser(result.user)
       console.log(result.user)
       // const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {email: result?.user?.email},{withCredentials:true})
       // console.log(data)

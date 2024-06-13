@@ -12,6 +12,8 @@ import {
   updateProfile,
 } from 'firebase/auth'
 import app from '../../Firebase/firebase.config'
+import axios from 'axios'
+
 
 // import axios from 'axios'
 export const AuthContext = createContext(null)
@@ -56,6 +58,7 @@ const AuthProvider = ({ children }) => {
       photoURL: photo,
     })
   }
+
   // Get token from server
   // const getToken = async email => {
   //   const { data } = await axios.post(
@@ -67,29 +70,30 @@ const AuthProvider = ({ children }) => {
   // }
 
   // save user
-  // const saveUser = async user => {
-  //   const currentUser = {
-  //     email: user?.email,
-  //     role: 'guest',
-  //     status: 'Verified',
-  //   }
-  //   const { data } = await axios.put(
-  //     `${import.meta.env.VITE_API_URL}/user`,
-  //     curimport app from './../../Firebase/firebase.config';
-// rentUser
-  //   )
-  //   return data
-  // }
+  const saveUser = async (user) => {
+    console.log(user);
+    const presentUser = {
+      email: user?.email,
+      image: user?.photoURL,
+      name: user?.displayName,
+      role: 'guest',
+      badge: 'Bronze',
+    }
+    // console.log(presentUser);
+
+    const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/user`, presentUser)
+    return data;
+  }
 
   // onAuthStateChange
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+    const unsubscribe = onAuthStateChanged(auth, async(currentUser) => {
       console.log(currentUser)
       setUser(currentUser)
-      // if (currentUser) {
+      if (currentUser) {
       //   getToken(currentUser.email)
-      //   saveUser(currentUser)
-      // }
+      //  await saveUser(currentUser)
+      }
       setLoading(false)
     })
     return () => {
@@ -107,6 +111,7 @@ const AuthProvider = ({ children }) => {
     // resetPassword,
     logOut,
     updateUserProfile,
+    saveUser
   }
 
   return (

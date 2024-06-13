@@ -12,7 +12,7 @@ import { useSearch } from "../../Hooks/useSearch";
 const AllPosts = forwardRef((props,ref) => {
   const [itemsPerPage, setItemsPerPage] = useState(3)
   const {searchQuery}= useSearch()
-  console.log(searchQuery)
+  // console.log(searchQuery)
   const [PageCount,setPageCount] = useState(0);
   const [currentPage,setCurrentPage] = useState(1);
   const [sort, setSort] = useState(false)
