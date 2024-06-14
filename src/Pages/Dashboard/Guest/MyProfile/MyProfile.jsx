@@ -6,6 +6,7 @@ import bronze from '../../../../assets/badge/bronge.png'
 import golden from '../../../../assets/badge/golden.jpg'
 import Cards from "../../../../components/Cards/Cards";
 
+
 const MyProfile = () => {
   const {user} = useAuth()
   
@@ -16,17 +17,19 @@ const MyProfile = () => {
     const {data} = await axiosCommon.get(`/user/${user?.email}`)
     return data
     },
+    enabled: !!user?.email,
   })
 
-  const {data:posts={}} = useQuery({
-    queryKey: ['three-posts',user?.email],
+  const {data:three_posts=[]} = useQuery({
+    queryKey: ['three-posts'],
     queryFn: async()=>{
     const {data} = await axiosCommon.get(`/three-posts`)
     return data
     },
+    enabled: true,
   })
 
-  console.log(posts)
+  console.log(three_posts)
   return (
     <div>
      <div className="flex items-center justify-center">
@@ -58,7 +61,7 @@ const MyProfile = () => {
        <h1 className="text-center font-semibold text-3xl">My newest three posts</h1>
        <div className="grid grid-cols-2 mt-4 gap-5">
         {
-          posts.map(post => <Cards key={post._id} post={post}></Cards>)
+          three_posts.map(single_post => <Cards key={single_post._id}  post ={single_post}></Cards>)
         }
        </div>
      </div>
