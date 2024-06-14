@@ -32,7 +32,7 @@ const MyProfile = () => {
   console.log(three_posts)
   return (
     <div>
-     <div className="flex items-center justify-center">
+     <div className="flex items-center justify-center my-4">
      <div className="max-w-md p-8 items-center sm:flex sm:space-x-6 border shadow-2xl">
         <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
           <img src={users?.image} alt="" className="object-cover object-center w-full h-full rounded dark:bg-gray-500" />

@@ -76,7 +76,7 @@ const AuthProvider = ({ children }) => {
       email: user?.email,
       image: user?.photoURL,
       name: user?.displayName,
-      role: 'guest',
+      role: 'host',
       badge: 'Bronze',
     }
     // console.log(presentUser);

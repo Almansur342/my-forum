@@ -12,6 +12,7 @@ import MyProfile from "../Pages/Dashboard/Guest/MyProfile/MyProfile";
 import AddPost from "../Pages/Dashboard/Guest/AddPost/AddPost";
 import MyPost from "../Pages/Dashboard/Guest/MyPost/MyPost";
 import MyComments from "../Pages/Comments/MyComments";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
     {
       path: 'my-post',
       element:<MyPost></MyPost>
+    },
+    {
+      path:'manage-users',
+      element:<ManageUsers></ManageUsers>
     },
    ]
   }

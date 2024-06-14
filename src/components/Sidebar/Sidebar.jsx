@@ -1,21 +1,25 @@
 import { useState } from 'react'
 import { GrLogout } from 'react-icons/gr'
-import { FcSettings } from 'react-icons/fc'
-import { BsFillHouseAddFill,} from 'react-icons/bs'
-import { AiFillProfile, AiOutlineBars } from 'react-icons/ai'
+
+import { AiOutlineBars } from 'react-icons/ai'
 import { BsGraphUp } from 'react-icons/bs'
-import { NavLink } from 'react-router-dom'
 import logo from '../../assets/logo/docy-2x.png'
 
 import { Link } from 'react-router-dom'
-import { MdHomeWork } from 'react-icons/md'
 import useAuth from '../../Hooks/useAuth'
+import useRole from '../../Hooks/useRole'
+import MenuItem from './Menu/MenuItem'
+import HostMenu from './Menu/HostMenu'
+import AdminMenu from './Menu/AdminMenu'
+
 
 const Sidebar = () => {
   const { logOut } = useAuth()
   const [isActive, setActive] = useState(false)
+  const [role, isLoading] = useRole()
+  console.log(role, isLoading)
 
-  // Sidebar Responsive Handler
+  // Sidebar Responsive 
   const handleToggle = () => {
     setActive(!isActive)
   }
@@ -47,9 +51,8 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-[#FFF8F5] w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
-          isActive && '-translate-x-full'
-        }  md:translate-x-0  transition duration-200 ease-in-out`}
+        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-[#FFF8F5] w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'
+          }  md:translate-x-0  transition duration-200 ease-in-out`}
       >
         <div>
           <div>
@@ -70,66 +73,20 @@ const Sidebar = () => {
           <div className='flex flex-col justify-between flex-1 mt-6'>
             {/* Conditional toggle button here.. */}
 
-          
+
             <nav>
               {/* Statistics */}
-              <NavLink
-                to='/dashboard'
-                end
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-[#F63E7B] ${
-                    isActive ? 'bg-gray-300  text-[#F63E7B]' : ''
-                  }`
-                }
-              >
-               <BsGraphUp className='h-5 w-5'></BsGraphUp>
+              <MenuItem
+                label='Statistics'
+                address='/dashboard'
+                icon={BsGraphUp}>
+              </MenuItem>
 
-                <span className='mx-4 font-medium'>Statistics</span>
-              </NavLink>
-
-
-
-              {/* my Profile */}
-              <NavLink
-                to='myProfile'
-                end
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-[#F63E7B] ${
-                    isActive ? 'bg-gray-300  text-[#F63E7B]' : ''
-                  }`
-                }
-              >
-                <AiFillProfile className='h-5 w-5'/>
-
-                <span className='mx-4 font-medium'>My Profile</span>
-              </NavLink>
-
-              {/* Add Room */}
-              <NavLink
-                to='add-post'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300   hover:text-[#F63E7B] ${
-                    isActive ? 'bg-gray-300]' : ''
-                  }`
-                }
-              >
-                <BsFillHouseAddFill className='w-5 h-5' />
-
-                <span className='mx-4 font-medium'>Add Post</span>
-              </NavLink>
-              {/* My Listing */}
-              <NavLink
-                to='my-post'
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-gray-300 hover:text-[#F63E7B] ${
-                    isActive ? 'bg-gray-300  text-[#F63E7B]' : ''
-                  }`
-                }
-              >
-                <MdHomeWork className='w-5 h-5' />
-
-                <span className='mx-4 font-medium'>My Posts</span>
-              </NavLink>
+              {/* guest menu */}
+              { role === 'host' && <HostMenu></HostMenu>}
+              { role === 'admin' && <AdminMenu></AdminMenu>}
+            
+               
             </nav>
           </div>
         </div>
