@@ -4,6 +4,7 @@ import useAuth from "../../../../Hooks/useAuth";
 import { MdEmail } from "react-icons/md";
 import bronze from '../../../../assets/badge/bronge.png'
 import golden from '../../../../assets/badge/golden.jpg'
+import Cards from "../../../../components/Cards/Cards";
 
 const MyProfile = () => {
   const {user} = useAuth()
@@ -16,11 +17,20 @@ const MyProfile = () => {
     return data
     },
   })
-  console.log(users)
+
+  const {data:posts={}} = useQuery({
+    queryKey: ['three-posts',user?.email],
+    queryFn: async()=>{
+    const {data} = await axiosCommon.get(`/three-posts`)
+    return data
+    },
+  })
+
+  console.log(posts)
   return (
     <div>
-     <div className="flex items-center justify-center mt-10">
-     <div className="max-w-md p-8 items-center sm:flex sm:space-x-6 shadow">
+     <div className="flex items-center justify-center">
+     <div className="max-w-md p-8 items-center sm:flex sm:space-x-6 border shadow-2xl">
         <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
           <img src={users?.image} alt="" className="object-cover object-center w-full h-full rounded dark:bg-gray-500" />
         </div>
@@ -42,6 +52,15 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
+     </div>
+      <p className="border-b-2 "></p>
+     <div className="my-5">
+       <h1 className="text-center font-semibold text-3xl">My newest three posts</h1>
+       <div className="grid grid-cols-2 mt-4 gap-5">
+        {
+          posts.map(post => <Cards key={post._id} post={post}></Cards>)
+        }
+       </div>
      </div>
     </div>
   );
