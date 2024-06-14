@@ -1,7 +1,35 @@
-
 import { Helmet } from "react-helmet-async";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosCommon from "../../../Hooks/useAxiosCommon";
+import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import LoadingSpinner from "../../../components/Spinner/LoadingSpinner";
+import UserDataRow from "../../../components/UserDataRow/UserDataRow";
 
 const ManageUsers = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+  const {user} = useAuth()
+  const axiosCommon = useAxiosCommon()
+
+  const {data:users=[], isLoading,refetch} = useQuery({
+    queryKey: ['users'],
+    queryFn: async()=>{
+    const {data} = await axiosCommon.get(`/users`)
+    return data
+    }
+  })
+  console.log(users);
+  if(isLoading) return <LoadingSpinner></LoadingSpinner>
   return (
     <>
       <Helmet>
@@ -20,40 +48,40 @@ const ManageUsers = () => {
                       scope='col'
                       className='px-5 py-3 bg-white border-b border-gray-200 text-left font-medium uppercase text-[#F73E7B]'
                     >
-                      Title
+                      Name
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white border-b border-gray-200  text-left font-medium uppercase text-[#F73E7B]'
                     >
-                      Up vote
+                     Email
                     </th>
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white border-b border-gray-200  text-left font-medium uppercase text-[#F73E7B]'
                     >
-                     Down vote
+                     Role
+                    </th>
+                    <th
+                      scope='col'
+                      className='px-5 py-3 bg-white border-b border-gray-200  text-left text-sm font-medium uppercase text-[#F73E7B]'
+                    >
+                      Subscription Status
                     </th>
                     
                     <th
                       scope='col'
                       className='px-5 py-3 bg-white border-b border-gray-200  text-left font-medium uppercase text-[#F73E7B]'
                     >
-                      Delete
-                    </th>
-                    <th
-                      scope='col'
-                      className='px-5 py-3 bg-white border-b border-gray-200 text-left font-medium uppercase text-[#F73E7B]'
-                    >
-                      Comment
+                     Make admin
                     </th>
                   </tr>
                 </thead>
-                {/* <tbody>
+                <tbody>
                   {
-                    posts.map(post=><PostDataRow key={post._id} post={post} refetch={refetch} handleDelete={handleDelete}></PostDataRow>)
+                    users.map(user=><UserDataRow key={user._id} user={user} refetch={refetch} ></UserDataRow>)
                   }
-                </tbody> */}
+                </tbody>
               </table>
             </div>
           </div>

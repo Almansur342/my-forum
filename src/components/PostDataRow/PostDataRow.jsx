@@ -10,10 +10,10 @@ const PostDataRow = ({ post,handleDelete}) => {
         <p className='text-gray-900 whitespace-no-wrap font-medium'>{post_title}</p>
       </td>
       <td className='px-5 py-5 border-b text-center border-gray-200 bg-white'>
-        <p className='text-gray-900 whitespace-no-wrap ext-lg font-medium'>{upVote}</p>
+        <p className='text-gray-900 whitespace-no-wrap text-lg font-medium'>{upVote}</p>
       </td>
       <td className='px-5 py-5 border-b text-center border-gray-200 bg-white'>
-        <p className='text-gray-900 whitespace-no-wrap ext-lg font-medium'>{downVote}</p>
+        <p className='text-gray-900 whitespace-no-wrap text-lg font-medium'>{downVote}</p>
       </td>
      
       <td className='px-5 py-5 border-b border-gray-200 bg-white'>
