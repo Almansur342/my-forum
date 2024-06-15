@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useAuth from "./useAuth";
 import useAxiosCommon from "./useAxiosCommon";
 import { useQuery } from "@tanstack/react-query";

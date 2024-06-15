@@ -50,7 +50,7 @@ const UserDataRow = ({ user, refetch }) => {
       role: selected,
     }
     try{
-      const data = await mutateAsync(user)
+      const data = await mutateAsync(userRole)
       console.log(data)
     } catch(err){
       Toast.fire({

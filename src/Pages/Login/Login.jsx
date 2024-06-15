@@ -10,15 +10,16 @@ import { useForm } from "react-hook-form";
 
 // import axios from "axios";
 import { Helmet } from "react-helmet-async";
-
 import {  useState } from "react";
 import Swal from "sweetalert2";
-
 import useAuth from "../../Hooks/useAuth";
 
 
 
 const Login = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location?.state || '/'
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -31,8 +32,6 @@ const Login = () => {
     }
   });
 
-  const location = useLocation();
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, formState: { errors },} = useForm();
   const { signIn, signInWithGoogle,saveUser} = useAuth()
@@ -53,7 +52,7 @@ const Login = () => {
           icon: 'success',
           confirmButtonText: 'Cool'
         })
-        navigate(location?.state ? location.state : '/')
+        navigate(from)
       }
     } catch (err) {
       console.log(err)
@@ -78,7 +77,7 @@ const Login = () => {
         icon: 'success',
         confirmButtonText: 'Cool'
       })
-      navigate(location?.state ? location.state : '/')
+      navigate(from)
     } catch (err) {
       console.log(err)
       Toast.fire({
@@ -86,10 +85,7 @@ const Login = () => {
         title: `${err?.message}`,
       })
 
-    }
-    
-      
-        
+    }       
   }
 
 

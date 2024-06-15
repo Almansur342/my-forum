@@ -13,7 +13,6 @@ import {
 } from 'firebase/auth'
 import app from '../../Firebase/firebase.config'
 import axios from 'axios'
-import useAxiosCommon from '../../Hooks/useAxiosCommon'
 
 
 // import axios from 'axios'
@@ -24,7 +23,6 @@ const googleProvider = new GoogleAuthProvider()
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  const axiosCommon = useAxiosCommon()
 
   const createUser = (email, password) => {
     setLoading(true)
@@ -85,7 +83,6 @@ const AuthProvider = ({ children }) => {
 
     const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/user`, presentUser)
     return data;
-
   }
 
   // onAuthStateChange
@@ -94,27 +91,15 @@ const AuthProvider = ({ children }) => {
       console.log(currentUser)
       setUser(currentUser)
       if (currentUser) {
-        const userInfo = {
-          email: currentUser.email
-        }
-        axiosCommon.post('/jwt',userInfo)
-        .then(res=>{
-         if(res.data.token){
-          localStorage.setItem('access-token',res.data.token)
-         } 
-        })
-       }
-        else{
-          localStorage.removeItem('access-token')
-        }
+      //   getToken(currentUser.email)
       //  await saveUser(currentUser)
-
+      }
       setLoading(false)
     })
     return () => {
       return unsubscribe()
     }
-  }, [axiosCommon])
+  }, [])
 
   const authInfo = {
     user,

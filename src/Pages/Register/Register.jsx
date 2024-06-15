@@ -13,6 +13,9 @@ import useAuth from "../../Hooks/useAuth";
 import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location?.state || '/'
 
   const Toast = Swal.mixin({
     toast: true,
@@ -29,8 +32,6 @@ const Register = () => {
 
   const {createUser,updateUserProfile,signInWithGoogle,saveUser} = useAuth()
     const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
   const { register, handleSubmit, formState: { errors },} = useForm();
   const onSubmit = async(data) => {
     // console.log(data);
@@ -73,7 +74,7 @@ const Register = () => {
           icon: 'success',
           confirmButtonText: 'Cool'
         })
-        navigate(location?.state ? location.state : '/')
+        navigate(from)
       } catch (err) {
         console.log(err)
         Toast.fire({
@@ -95,7 +96,7 @@ const Register = () => {
         icon: 'success',
         confirmButtonText: 'Cool'
       })
-      navigate(location?.state ? location.state : '/')
+      navigate(from)
     } catch (err) {
       console.log(err)
       Toast.fire({
