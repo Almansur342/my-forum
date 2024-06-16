@@ -15,6 +15,7 @@ import MyComments from "../Pages/Comments/MyComments";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import PrivateRoute from './PrivateRoute';
 import AdminRoute from "./AdminRoute";
+import HostRoute from "./HostRoute";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -50,15 +51,27 @@ export const router = createBrowserRouter([
       },
       {
         path: 'myProfile',
-        element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+        element: <PrivateRoute>
+          <HostRoute>
+            <MyProfile></MyProfile>
+          </HostRoute>
+        </PrivateRoute>
       },
       {
         path: 'add-post',
-        element: <PrivateRoute><AddPost></AddPost></PrivateRoute>
+        element: <PrivateRoute>
+          <HostRoute>
+            <AddPost></AddPost>
+          </HostRoute>
+        </PrivateRoute>
       },
       {
         path: 'my-post',
-        element: <PrivateRoute><MyPost></MyPost></PrivateRoute>
+        element: <PrivateRoute>
+          <HostRoute>
+            <MyPost></MyPost>
+          </HostRoute>
+        </PrivateRoute>
       },
       {
         path: 'manage-users',
