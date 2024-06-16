@@ -1,10 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../../Hooks/useAuth";
-import useAxiosCommon from "../../../Hooks/useAxiosCommon";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import LoadingSpinner from "../../../components/Spinner/LoadingSpinner";
 import UserDataRow from "../../../components/UserDataRow/UserDataRow";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ManageUsers = () => {
   const Toast = Swal.mixin({
@@ -19,12 +19,12 @@ const ManageUsers = () => {
     }
   });
   const {user} = useAuth()
-  const axiosCommon = useAxiosCommon()
+  const axiosSecure = useAxiosSecure()
 
   const {data:users=[], isLoading,refetch} = useQuery({
     queryKey: ['users'],
     queryFn: async()=>{
-    const {data} = await axiosCommon.get(`/users`)
+    const {data} = await axiosSecure.get('/users')
     return data
     }
   })

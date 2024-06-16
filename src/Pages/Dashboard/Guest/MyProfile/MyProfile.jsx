@@ -1,20 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import useAuth from "../../../../Hooks/useAuth";
 import { MdEmail } from "react-icons/md";
 import bronze from '../../../../assets/badge/bronge.png'
 import golden from '../../../../assets/badge/golden.jpg'
 import Cards from "../../../../components/Cards/Cards";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 
 const MyProfile = () => {
   const {user} = useAuth()
   
-  const axiosCommon = useAxiosCommon()
+  const axiosSecure = useAxiosSecure()
   const {data:users={}} = useQuery({
     queryKey: ['users',user?.email],
     queryFn: async()=>{
-    const {data} = await axiosCommon.get(`/user/${user?.email}`)
+    const {data} = await axiosSecure.get(`/user/${user?.email}`)
     return data
     },
     enabled: !!user?.email,
@@ -23,7 +23,7 @@ const MyProfile = () => {
   const {data:three_posts=[]} = useQuery({
     queryKey: ['three-posts'],
     queryFn: async()=>{
-    const {data} = await axiosCommon.get(`/three-posts`)
+    const {data} = await axiosSecure.get(`/three-posts/${user?.email}`)
     return data
     },
     enabled: true,
@@ -33,7 +33,7 @@ const MyProfile = () => {
   return (
     <div>
      <div className="flex items-center justify-center my-4">
-     <div className="max-w-md p-8 items-center sm:flex sm:space-x-6 border shadow-2xl">
+     <div className="max-w-lg p-8 items-center sm:flex sm:space-x-6 border shadow-2xl">
         <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
           <img src={users?.image} alt="" className="object-cover object-center w-full h-full rounded dark:bg-gray-500" />
         </div>

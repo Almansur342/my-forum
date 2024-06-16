@@ -3,14 +3,14 @@ import { useState } from 'react'
 import UpdateUserRoleModal from '../Modal/UpdateUserRoleModal'
 
 import Swal from 'sweetalert2';
-import useAxiosCommon from '../../Hooks/useAxiosCommon';
 import { useMutation } from '@tanstack/react-query';
 import useAuth from '../../Hooks/useAuth';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 const UserDataRow = ({ user, refetch }) => {
   const {user: loggedInUser} = useAuth()
   const [isOpen,setIsOpen] = useState(false);
-  const axiosCommon = useAxiosCommon()
+  const axiosSecure = useAxiosSecure()
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -24,14 +24,14 @@ const UserDataRow = ({ user, refetch }) => {
   });
   const {mutateAsync} = useMutation({
     mutationFn: async (role) =>{
-      const {data} = await axiosCommon.patch(`/user/update/${user?.email}`, role)
+      const {data} = await axiosSecure.patch(`/user/update/${user?.email}`, role)
       return data
     },
     onSuccess:()=>{
       refetch()
       Toast.fire({
         icon: 'success',
-        title: 'User has been promoted to Admin',
+        title: 'User role has been updated',
       })
       setIsOpen(false)
     }

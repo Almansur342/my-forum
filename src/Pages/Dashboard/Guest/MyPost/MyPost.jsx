@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
-import useAxiosCommon from "../../../../Hooks/useAxiosCommon";
 import useAuth from "../../../../Hooks/useAuth";
 import LoadingSpinner from "../../../../components/Spinner/LoadingSpinner";
 import PostDataRow from "../../../../components/PostDataRow/PostDataRow";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const MyPost = () => {
   const {user} = useAuth()
-  const axiosCommon = useAxiosCommon()
+  const axiosSecure = useAxiosSecure()
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -23,7 +24,7 @@ const MyPost = () => {
   const {data:posts=[], isLoading,refetch} = useQuery({
     queryKey: ['my-posts', user?.email],
     queryFn: async()=>{
-    const {data} = await axiosCommon.get(`/my-posts/${user?.email}`)
+    const {data} = await axiosSecure.get(`/my-posts/${user?.email}`)
     return data
     }
   })
@@ -31,7 +32,7 @@ const MyPost = () => {
 
   const handleDelete = async(id) =>{
     try{
-        const {data} = await axiosCommon.delete(`/deletePost/${id}`)
+        const {data} = await axiosSecure.delete(`/deletePost/${id}`)
         if(data.deletedCount > 0){
           Swal.fire({
             title: "Deleted!",
