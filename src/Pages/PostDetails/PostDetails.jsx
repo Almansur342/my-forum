@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LoadingSpinner from "../../components/Spinner/LoadingSpinner";
 import { formatDistanceToNow } from "date-fns";
 import { FaComments } from "react-icons/fa";
@@ -8,17 +8,19 @@ import { SlDislike, SlLike } from "react-icons/sl";
 import { CiShare2 } from "react-icons/ci";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const PostDetails = () => {
   const {user} = useAuth()
   const email = user?.email;
   const { id } = useParams()
+  const axiosSecure = useAxiosSecure()
   const axiosCommon = useAxiosCommon()
+  const queryClient = useQueryClient();
 
   const {
     data: postDetails = {},
     isLoading,
-    refetch,
   } = useQuery({
     queryKey: ['postDetails', id],
     queryFn: async () => {
@@ -27,14 +29,15 @@ const PostDetails = () => {
     },
   })
 
-  const { Author, createdAt, downVote, hostEmail, post_description, post_title, tags_name, upVote } = postDetails || {}
+  const { Author, createdAt, downVote, post_description, post_title, tags_name, upVote } = postDetails || {}
 
-  const parsedDate = new Date(createdAt);
   let timeAgo = 'Invalid date';
-  try {
-    timeAgo = formatDistanceToNow(parsedDate, { addSuffix: true });
-  } catch (error) {
-    console.error('Error formatting date:', error);
+  if (createdAt) {
+    try {
+      timeAgo = formatDistanceToNow(new Date(createdAt), { addSuffix: true });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+    }
   }
 
   const Toast = Swal.mixin({
@@ -55,13 +58,15 @@ const PostDetails = () => {
       return data;
     },
     onSuccess: (data, { voteType }) => {
-      refetch();
+      // console.log("Vote successful:", data);
+      queryClient.invalidateQueries(['postDetails', id]);
       Toast.fire({
         icon: "success",
         title: `Successfully ${voteType === "upVote" ? "up voted" : "down voted"}!`,
       });
     },
     onError: (error) => {
+      // console.error("Vote error:", error); 
       Toast.fire({
         icon: "error",
         title: error.response?.data?.message || "An error occurred",
@@ -77,6 +82,29 @@ const PostDetails = () => {
     }
   };
 
+  const {mutateAsync:mutateComment} = useMutation({
+    mutationFn: async({comment}) =>{
+      const {data} = axiosSecure.post('/comment',{
+        email,post_title,comment,
+      })
+      return data
+    },
+    onSuccess:()=>{
+      Toast.fire({
+        icon: 'success',
+        title: ' You have wrote a comment',
+      })
+    }
+  })
+
+  const handleComment = async(e) =>{
+    e.preventDefault()
+    const comment = e.target.comment.value;
+    await mutateComment({comment})
+  }
+
+  
+
 
 
   if (isLoading) return <LoadingSpinner></LoadingSpinner>
@@ -85,10 +113,10 @@ const PostDetails = () => {
       <div className="flex gap-7 border-2 border-red-400">
         <div className="w-2/5 shadow-xl p-5">
           <div className=" p-2">
-            <img src={Author.image} alt="" className="w-32 h-32 mx-auto rounded-lg" />
+            <img src={Author?.image} alt="" className="w-32 h-32 mx-auto rounded-lg" />
             <div className="space-y-4 text-center divide-y dark:divide-gray-300">
               <div className="my-2 space-y-1">
-                <h2 className="text-xl font-semibold sm:text-2xl">Leroy Jenkins</h2>
+                <h2 className="text-xl font-semibold sm:text-2xl">{Author?.name}</h2>
               </div>
             </div>
           </div>
@@ -121,11 +149,11 @@ const PostDetails = () => {
       </div>
        <div className="my-6">
          <h1 className="text-3xl mr-28 text-center mt-6 font-semibold ">Comment section</h1>
-         <form >
+         <form onSubmit={handleComment}>
 							<div className='flex mt-3'>
 								<input
 									type="text"
-									name="search" placeholder="Write something here" className=" border flex-1 border-[#F73E7B] py-2 pl-10 text-base rounded-md sm:w-auto" />
+									name="comment" placeholder="Write something here" className=" border flex-1 border-[#F73E7B] py-2 pl-10 text-base rounded-md sm:w-auto" />
 								<button className='px-3 py-1 rounded-md ml-3 bg-[#F73E7B] text-white text-base lg:text-lg  uppercase'>Comment</button>
 							</div>
 						</form>

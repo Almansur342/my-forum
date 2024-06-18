@@ -1,8 +1,7 @@
 import { FaSearch } from 'react-icons/fa';
 import banner from '../../assets/logo/forum-banner.png'
 import { useSearch } from '../../Hooks/useSearch';
-import { useRef } from 'react';
-import AllPosts from '../AllPosts/AllPosts';
+
 
 const Banner = ({allPostsRef}) => {
 	const {updateSearchQuery} = useSearch();
