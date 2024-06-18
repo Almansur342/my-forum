@@ -16,6 +16,7 @@ import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import PrivateRoute from './PrivateRoute';
 import AdminRoute from "./AdminRoute";
 import HostRoute from "./HostRoute";
+import PostDetails from "../Pages/PostDetails/PostDetails";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -27,9 +28,15 @@ export const router = createBrowserRouter([
         element: <Home></Home>
       },
       {
+        path: '/details/:id',
+        element: <PrivateRoute>
+          <PostDetails></PostDetails>
+        </PrivateRoute>
+      },
+      {
         path: '/my-comments',
         element: <PrivateRoute><MyComments></MyComments></PrivateRoute>
-      }
+      },
     ]
   },
   {

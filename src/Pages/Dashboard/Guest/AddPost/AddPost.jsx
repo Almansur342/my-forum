@@ -51,8 +51,8 @@ const AddPost = () => {
     try {
       const info = {
         post_title,
-        upVote,
-        downVote,
+        upVote: parseInt(upVote), 
+        downVote: parseInt(downVote),
         post_description,
         tags_name,
         hostEmail,
