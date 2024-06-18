@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
         </PrivateRoute>
       },
       {
-        path: '/my-comments',
+        path: '/my-comments/:post_title',
         element: <PrivateRoute><MyComments></MyComments></PrivateRoute>
       },
     ]

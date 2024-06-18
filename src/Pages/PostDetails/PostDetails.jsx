@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LoadingSpinner from "../../components/Spinner/LoadingSpinner";
@@ -29,7 +29,7 @@ const PostDetails = () => {
     },
   })
 
-  const { Author, createdAt, downVote, post_description, post_title, tags_name, upVote } = postDetails || {}
+  const { Author, createdAt, downVote, post_description, post_title, tags_name, upVote,_id } = postDetails || {}
 
   let timeAgo = 'Invalid date';
   if (createdAt) {
@@ -103,6 +103,7 @@ const PostDetails = () => {
     await mutateComment({comment})
   }
 
+
   
 
 
@@ -127,6 +128,7 @@ const PostDetails = () => {
         <div className="w-3/5 border shadow-xl p-5">
           <p className="text-3xl font-bold text-[#F73E7B]">Title: <span className="text-black text-2xl">{post_title}</span></p>
           <p className="text-xl font-bold text-[#F73E7B] mt-2">Description: <span className="text-black text-lg">{post_description}</span></p>
+
           <div className="flex space-x-5 mt-5  dark:text-gray-600">
             <button onClick={()=>handleVote("upVote")} type="button" className="flex items-center justify-center p-2 space-x-1.5">
               <SlLike className="h-8 w-8" />
@@ -136,14 +138,10 @@ const PostDetails = () => {
               <SlDislike className="h-8 w-8" />
               <span className="text-4xl font-medium text-[#F73E7B]">{downVote}</span>
             </button>
-          <button type="button" className="flex items-center justify-center p-2 space-x-1.5">
-              <FaComments className="h-8 w-8" />
-              <span className="text-4xl font-medium text-[#F73E7B]">{downVote}</span>
-            </button>
-            <button type="button" className="flex items-center justify-center p-2 space-x-1.5">
-              <CiShare2  className="h-8 w-8" />
-              <span className="text-4xl font-medium text-[#F73E7B]"></span>
-            </button>
+          </div>
+          <div className="flex gap-6">
+          <Link to={`/my-comments/${post_title}`} className="btn mt-6 bg-[#F73E7B] text-white text-base lg:text-lg mb-3 uppercase">Comment</Link>
+          <button className="btn mt-6 bg-green-600 text-white text-base lg:text-lg mb-3 uppercase">Share</button>
           </div>
         </div>
       </div>
