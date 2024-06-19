@@ -69,7 +69,7 @@ const AddPost = () => {
 
     } catch (err) {
       Toast.fire({
-        icon: 'success',
+        icon: 'error',
         title:`${err.message}`,
       })
     }

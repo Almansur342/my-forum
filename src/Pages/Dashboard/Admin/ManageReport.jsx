@@ -31,10 +31,9 @@ const ManageReport = () => {
     try{
         const {data} = await axiosSecure.delete(`/deleteComment/${id}`)
         if(data.deletedCount > 0){
-          Swal.fire({
-            title: "Deleted!",
-            text: "Admin has deleted the reported comment .",
-            icon: "success"
+          Toast.fire({
+            icon: 'success',
+            title: 'Comment deleted successfully',
           });
     }
     refetch(reportComment)
@@ -46,6 +45,46 @@ const ManageReport = () => {
     })
   }
 }
+
+const handleIgnore = async (id) => {
+  try {
+    const { data } = await axiosSecure.patch(`/ignoreReport/${id}`);
+    if (data.message) {
+      Toast.fire({
+        icon: 'success',
+        title: 'Admin ignored the the report',
+      });
+    }
+    refetch(reportComment);
+  } catch (err) {
+    console.log(err.message);
+    Toast.fire({
+      icon: 'error',
+      title: `${err.message}`
+    });
+  }
+};
+
+const handleWarning = async (id) => {
+  try {
+    const { data } = await axiosSecure.patch(`/warning/${id}`);
+    console.log(data)
+    if (data.message) {
+      Toast.fire({
+        icon: 'success',
+        title: 'Issued a warning successfully',
+      });
+    }
+    refetch(reportComment);
+  } catch (err) {
+    console.log(err.message);
+    Toast.fire({
+      icon: 'error',
+      title: `${err.message}`
+    });
+  }
+};
+
   console.log(reportComment)
   if(isLoading) return <LoadingSpinner></LoadingSpinner>
   return (
@@ -76,7 +115,7 @@ const ManageReport = () => {
                     </th>
                     <th
                       scope='col'
-                      className='px-5 text-center py-3 bg-white border-b border-gray-200 text-xl font-medium uppercase text-[#F73E7B]'
+                      className='px-1 text-center py-3 bg-white border-b border-gray-200 text-xl font-medium uppercase text-[#F73E7B]'
                     >
                     Action
                     </th>
@@ -84,7 +123,7 @@ const ManageReport = () => {
                 </thead>
                 <tbody>
                   {
-                    reportComment.map(reportCom=><ReportedComment key={reportCom._id} reportCom={reportCom} handleDelete={handleDelete}></ReportedComment>)
+                    reportComment.map(reportCom=><ReportedComment key={reportCom._id} reportCom={reportCom} handleDelete={handleDelete} handleIgnore={handleIgnore} handleWarning={handleWarning}></ReportedComment>)
                   }
                 </tbody>
               </table>
