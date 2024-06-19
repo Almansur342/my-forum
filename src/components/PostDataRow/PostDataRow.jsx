@@ -20,7 +20,7 @@ const PostDataRow = ({ post,handleDelete}) => {
       <button onClick={()=>handleDelete(_id)} className="bg-[#F73E7B] px-3 py-1 font-medium rounded text-white text-sm lg:text-sm uppercase">delete</button>
       </td>
       <td className='px-5 py-5 border-b border-gray-200 bg-white'>
-      <Link to='/my-comments' className="bg-[#F73E7B] px-3 py-1 font-medium rounded text-white text-sm lg:text-sm uppercase">Comment</Link>
+      <Link  to={`/my-comments/${post_title}`} className="bg-[#F73E7B] px-3 py-1 font-medium rounded text-white text-sm lg:text-sm uppercase">Comment</Link>
       </td>
     </tr>
   )
