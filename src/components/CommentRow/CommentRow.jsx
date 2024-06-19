@@ -1,14 +1,18 @@
 import  { useState } from 'react';
 import { Link } from "react-router-dom";
 import Modal from 'react-modal';
+import Swal from 'sweetalert2';
+import { useMutation } from '@tanstack/react-query';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 Modal.setAppElement('#root'); 
 
 const CommentRow = ({ allComment }) => {
-  const { email, comment } = allComment || {};
+  const { email, comment, _id } = allComment || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFeedback, setSelectedFeedback] = useState('');
   const [reportButtonActive, setReportButtonActive] = useState(false);
+  const axiosSecure = useAxiosSecure()
 
 
   const customStyles = {
@@ -28,6 +32,38 @@ const CommentRow = ({ allComment }) => {
     },
   };
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    },
+  });
+
+  const { mutateAsync: reportMutation } = useMutation({
+    mutationFn: async ({ id, reason }) => {
+      const { data } = await axiosSecure.patch(`/reportComment/${id}`,{reason});
+      return data;
+    },
+    onSuccess: () => {
+      setReportButtonActive(false);
+      Toast.fire({
+        icon: 'success',
+        title: 'Report submitted successfully',
+      });
+    },
+    onError: (error) => {
+      Toast.fire({
+        icon: 'error',
+        title: `Error: ${error.message}`,
+      });
+    },
+  });
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -36,7 +72,6 @@ const CommentRow = ({ allComment }) => {
     setIsModalOpen(false);
   };
 
-  // Function to truncate the comment if it's longer than 20 characters
   const truncateComment = (text, length) => {
     if (text.length > length) {
       return `${text.substring(0, length)}...`;
@@ -46,13 +81,14 @@ const CommentRow = ({ allComment }) => {
 
   const handleFeedbackChange = (event) => {
     setSelectedFeedback(event.target.value);
+    console.log(event.target.value)
     setReportButtonActive(true);
   };
 
-  const handleReportClick = () => {
-    // Implement your report logic here
-    setReportButtonActive(false);
+  const handleReportClick = async() => {
+    await reportMutation({ id: _id, reason: selectedFeedback });
   };
+
 
   return (
     <>
