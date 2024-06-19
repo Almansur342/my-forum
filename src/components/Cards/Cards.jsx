@@ -4,10 +4,23 @@ import { formatDistanceToNow } from "date-fns";
 import { FaComments } from "react-icons/fa";
 import { SlLike } from "react-icons/sl";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 
 const Cards = ({post}) => {
   const {Author,post_title,tags_name,createdAt,voteDifference,_id} = post || {}
+
+	const axiosSecure = useAxiosSecure()
+  const {
+    data:allComments = {}, } = useQuery({
+    queryKey: ['allComments', post_title],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/allComments/${post_title}`)
+      return data
+    },
+  })
+console.log(allComments)
 
   const parsedDate = new Date(createdAt);
   let timeAgo = 'Invalid date';
@@ -34,7 +47,7 @@ const Cards = ({post}) => {
 		<div className="flex space-x-2 text-sm dark:text-gray-600">
 			<button type="button" className="flex items-center p-1 space-x-1.5">
       <FaComments />
-				<span>30</span>
+				<span>{allComments.length}</span>
 			</button>
 			<button type="button" className="flex items-center p-1 space-x-1.5">
       <SlLike />

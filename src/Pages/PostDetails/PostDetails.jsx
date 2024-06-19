@@ -140,7 +140,6 @@ const PostDetails = () => {
             </button>
           </div>
           <div className="flex gap-6">
-          <Link to={`/my-comments/${post_title}`} className="btn mt-6 bg-[#F73E7B] text-white text-base lg:text-lg mb-3 uppercase">Comment</Link>
           <button className="btn mt-6 bg-green-600 text-white text-base lg:text-lg mb-3 uppercase">Share</button>
           </div>
         </div>

@@ -17,6 +17,7 @@ import PrivateRoute from './PrivateRoute';
 import AdminRoute from "./AdminRoute";
 import HostRoute from "./HostRoute";
 import PostDetails from "../Pages/PostDetails/PostDetails";
+import ManageReport from "../Pages/Dashboard/Admin/ManageReport";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -85,6 +86,14 @@ export const router = createBrowserRouter([
         element: <PrivateRoute>
           <AdminRoute>
             <ManageUsers></ManageUsers>
+          </AdminRoute>
+        </PrivateRoute>
+      },
+      {
+        path: 'manage-report',
+        element: <PrivateRoute>
+          <AdminRoute>
+            <ManageReport></ManageReport>
           </AdminRoute>
         </PrivateRoute>
       },

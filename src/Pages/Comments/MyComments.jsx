@@ -14,7 +14,7 @@ const MyComments = () => {
       isLoading,
       refetch
   } = useQuery({
-    queryKey: ['postDetails',],
+    queryKey: ['allComments',],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/allComments/${post_title}`)
       return data
