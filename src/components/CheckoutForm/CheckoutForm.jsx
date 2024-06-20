@@ -28,9 +28,11 @@ const CheckoutForm = () => {
   const [clientSecret, setClientSecret] = useState();
   const [cardError, setCardError] = useState("");
   const [processing, setProcessing] = useState(false);
+  const [isGoldMember, setIsGoldMember] = useState(false);
   const {user} = useAuth()
   useEffect(()=>{
     getClientSecret({price: 50})
+    checkUserBadge()
   },[])
 
   const getClientSecret = async (price) =>{
@@ -38,6 +40,17 @@ const CheckoutForm = () => {
     console.log(data)
     setClientSecret(data.clientSecret)
   }
+
+  const checkUserBadge = async () => {
+    try {
+      const { data } = await axiosSecure.get(`/userBadge?email=${user?.email}`);
+      if (data.badge === 'Gold') {
+        setIsGoldMember(true);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleSubmit = async (event) => {
     // Block native form submission.
@@ -111,6 +124,7 @@ const CheckoutForm = () => {
           icon: 'success',
           title: 'Payment successful and badge updated to Gold'
         });
+        setIsGoldMember(true);
 
       }catch(err){
         console.log(err)
@@ -121,33 +135,35 @@ const CheckoutForm = () => {
   };
 
   return (
-   <>
-     <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: '16px',
-              color: '#424770',
-              '::placeholder': {
-                color: '#aab7c4',
+    <>
+      {!isGoldMember ? (
+        <form onSubmit={handleSubmit}>
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  color: '#424770',
+                  '::placeholder': {
+                    color: '#aab7c4',
+                  },
+                },
+                invalid: {
+                  color: '#9e2146',
+                },
               },
-            },
-            invalid: {
-              color: '#9e2146',
-            },
-          },
-        }}
-      />
-      <div className='flex gap-10'>
-      <button disabled={!stripe || !clientSecret || processing} type='submit' className="px-10 rounded font-medium py-2 mt-6 bg-green-600 text-white text-base lg:text-lg mb-3 uppercase">Pay $50</button>
-      <button className="px-10 rounded py-2 mt-6 bg-[#F73E7B] text-white text-base lg:text-lg mb-3 uppercase font-medium">Cancel</button>
-      </div>
-    </form>
-    {
-      cardError && <p className='text-lg text-red-500 text-center mt-5'>{cardError}</p>
-    }
-   </>
+            }}
+          />
+          <div className='flex gap-10'>
+            <button disabled={!stripe || !clientSecret || processing} type='submit' className="px-10 rounded font-medium py-2 mt-6 bg-green-600 text-white text-base lg:text-lg mb-3 uppercase">Pay $50</button>
+            <button className="px-10 rounded py-2 mt-6 bg-[#F73E7B] text-white text-base lg:text-lg mb-3 uppercase font-medium">Cancel</button>
+          </div>
+        </form>
+      ) : (
+        <p className='text-xl font-semibold text-[#F73E7B] text-center mt-5'>You are already a Gold member!</p>
+      )}
+      {cardError && <p className='text-lg text-red-500 text-center mt-5'>{cardError}</p>}
+    </>
   );
 };
 
