@@ -2,6 +2,7 @@ import { useRef } from "react";
 import AllPosts from "../../components/AllPosts/AllPosts";
 import Banner from "../../components/Banner/Banner";
 import Tags from "../../components/Tags/Tags";
+import Annouce from "../Anouncement/Annouce";
 
 const Home = () => {
   const allPostsRef = useRef(null);
@@ -10,6 +11,7 @@ const Home = () => {
       <Banner allPostsRef={allPostsRef}></Banner>
       <Tags></Tags>
       <AllPosts ref={allPostsRef}></AllPosts>
+      <Annouce></Annouce>
     </div>
   );
 };

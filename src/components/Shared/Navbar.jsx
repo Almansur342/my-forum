@@ -6,11 +6,14 @@ import { useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 // import { Tooltip } from "react-tooltip";
 // import { Tooltip } from 'react-tooltip'
+import useAnnouncement from './../../Hooks/useAnnouncement';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
+  const [allAnnounce] = useAnnouncement()
+  console.log(allAnnounce)
   const handleLogOut = () => {
     logOut()
       .then(result => {
@@ -32,8 +35,9 @@ const Navbar = () => {
 
     <NavLink to='/add' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#F63E7B]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>About Us</li></NavLink>
     
-    <div className="-mr-16 ml-5">
+    <div className="-mr-16 ml-5 relative">
     <IoMdNotificationsOutline className="w-12 h-12" />
+     <p className="text-3xl font-semibold text-[#F63E7B] absolute -top-2 -right-1">{allAnnounce.length}</p>
     </div>
 
     

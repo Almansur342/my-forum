@@ -147,7 +147,7 @@ const AddPost = () => {
                 <input type="number" value="0" name="downVote" className="input input-bordered appearance-none focus:outline-none"
                   {...register("downVote", { required: true })}
                 />
-                {errors.quantity && <span className="text-red-500">This field is required</span>}
+                {errors.downVote && <span className="text-red-500">This field is required</span>}
               </div>
               <div className="form-control">
               <label className="label">

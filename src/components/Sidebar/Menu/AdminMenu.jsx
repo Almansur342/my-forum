@@ -1,6 +1,7 @@
 import { FaUserCog } from 'react-icons/fa'
 import MenuItem from './MenuItem'
 import { MdReport } from 'react-icons/md'
+import { GrAnnounce } from 'react-icons/gr'
 
 
 const AdminMenu = () => {
@@ -17,6 +18,12 @@ const AdminMenu = () => {
         label='Manage Report'
         address='manage-report'
         icon={MdReport}>
+      </MenuItem>
+     {/* Manage Announcement */}
+     <MenuItem
+        label='Announcement'
+        address='announcement'
+        icon={GrAnnounce}>
       </MenuItem>
     </>
   )

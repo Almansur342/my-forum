@@ -20,7 +20,7 @@ const Cards = ({post}) => {
       return data
     },
   })
-console.log(allComments)
+// console.log(allComments)
 
   const parsedDate = new Date(createdAt);
   let timeAgo = 'Invalid date';
