@@ -28,7 +28,7 @@ const Navbar = () => {
   const navLink = <div className="flex items-center gap-5">
     <NavLink to='/' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#F63E7B]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>Home</li></NavLink>
 
-    <NavLink to='/add' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#6d46c7]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>Membership</li></NavLink>
+    <NavLink to='/membership' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#6d46c7]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>Membership</li></NavLink>
 
     <NavLink to='/add' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#F63E7B]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>About Us</li></NavLink>
     
