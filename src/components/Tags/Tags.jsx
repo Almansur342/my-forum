@@ -1,16 +1,29 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxiosCommon from "../../Hooks/useAxiosCommon";
+
 const Tags = () => {
-  const tags = [
-    { name: "Programming" },
-    { name: "Work" },
-    { name: "Travel" },
-    { name: "Technology" },
-    { name: "Health" },
-    { name: "Finance" },
-    { name: "Business" },
-    { name: "Science" },
-    { name: "Lifestyle" },
-    { name: "History" }
-  ];
+  // const tags = [
+  //   { name: "Programming" },
+  //   { name: "Work" },
+  //   { name: "Travel" },
+  //   { name: "Technology" },
+  //   { name: "Health" },
+  //   { name: "Finance" },
+  //   { name: "Business" },
+  //   { name: "Science" },
+  //   { name: "Lifestyle" },
+  //   { name: "History" }
+  // ];
+
+  const axiosCommon = useAxiosCommon()
+
+  const {data:tags=[],} = useQuery({
+    queryKey: ['tags'],
+    queryFn: async()=>{
+    const {data} = await axiosCommon.get('/tags')
+    return data
+    }
+  })
 
   return (
     <div className="my-10 container mx-auto px-4">

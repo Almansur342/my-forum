@@ -4,18 +4,30 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import bronze from '../../../assets/badge/bronge.png'
 import golden from '../../../assets/badge/golden.jpg'
-import { FaCommentDots, FaComments, FaUser } from "react-icons/fa";
-import useAxiosCommon, { axiosCommon } from './../../../Hooks/useAxiosCommon';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
+import { FaCommentDots, FaSearch, FaUser } from "react-icons/fa";
+
+import { PieChart, Pie,  Cell,  Legend } from 'recharts';
+import Swal from "sweetalert2";
+import useAxiosCommon from "../../../Hooks/useAxiosCommon";
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const AdminProfile = () => {
-  const { user } = useAuth()
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
 
   const axiosSecure = useAxiosSecure();
   const axiosCommon = useAxiosCommon()
 
-  const { data: adminProfile = {} } = useQuery({
+  const { data: adminProfile = [] } = useQuery({
     queryKey: ['admin-profile'],
     queryFn: async () => {
       const { data } = await axiosSecure.get('/admin-profile');
@@ -32,19 +44,19 @@ const AdminProfile = () => {
     }
   })
 
-  const { data: getCount = 0 } = useQuery({
-    queryKey: ['getCount'],
+  const { data: postCount = [] } = useQuery({
+    queryKey: ['postCount'],
     queryFn: async () => {
-      const { data } = await axiosCommon.get('/post-count')
-      return data.count
+      const { data } = await axiosCommon.get('/postCount')
+      return data
     },
   })
 
-  const { data: commentCount = 0 } = useQuery({
+  const { data: commentCount = [] } = useQuery({
     queryKey: ['comment-count'],
     queryFn: async () => {
       const { data } = await axiosSecure.get('/comment-count');
-      return data.count;
+      return data;
     }
   });
 
@@ -65,10 +77,29 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
 const data = [
-  { name: 'Total post', value: getCount },
-  { name: 'Total comments', value: commentCount },
-  { name: 'Total users', value:users.length },
+  { name: 'Total post', value: postCount?.length },
+  { name: 'Total comments', value: commentCount?.length },
+  { name: 'Total users', value:users?.length },
 ];
+
+const handleTag = async (e) => {
+  e.preventDefault();
+  const tag = { name: e.target.tag.value };
+
+  try {
+    const {data} = await axiosSecure.post('/tags', tag);
+    if (data.insertedId) {
+      Toast.fire({
+        icon: 'success',
+        title: 'Tag added successfully',
+      });
+      e.target.reset();
+    }
+  } catch (error) {
+    console.error('Failed to add tag:', error);
+  }
+};
+ 
   return (
     <div>
       <h1 className="text-3xl font-semibold text-center">Admin Profile</h1>
@@ -106,21 +137,21 @@ const data = [
           <div>
             <div className="flex items-center p-1 space-x-1.5">
               <FaUser />
-              <span className="text-lg font-medium">All users: {users.length}</span>
+              <span className="text-lg font-medium">All users: {users?.length}</span>
             </div>
             <div className="flex items-center p-1 space-x-1.5">
               <MdLocalPostOffice />
-              <span className="text-lg font-medium">All Post: {getCount}</span>
+              <span className="text-lg font-medium">All Post: {postCount?.length}</span>
             </div>
             <div className="flex items-center p-1 space-x-1.5">
               <FaCommentDots />
-              <span className="text-lg font-medium">All Comments: {commentCount}</span>
+              <span className="text-lg font-medium">All Comments: {commentCount?.length}</span>
             </div>
           </div>
         </div>
       </div>
-      <h1 className="text-3xl text-center mt-9 -mb-16">Pie Chart</h1>
-        <div className="flex items-center justify-center">
+       <div className="flex items-center gap-6">
+       <div className="flex items-center justify-center">
         <PieChart width={400} height={400}>
           <Pie
             data={data}
@@ -140,6 +171,19 @@ const data = [
         </PieChart>
       
         </div>
+        <div>
+          <h1 className="text-2xl text-center font-semibold my-3">Add Tags</h1>
+          <form onSubmit={handleTag}>
+							<div className='relative'>
+								<FaSearch className='absolute top-3 left-3'></FaSearch>
+								<input
+									type="text"
+									name="tag" placeholder="Add tags" className="w-40 border border-[#F73E7B] py-2 pl-10 text-base rounded-md sm:w-auto" />
+								<button type="submit" className='px-6 py-1 rounded-md ml-3 bg-[#F73E7B] text-white text-base lg:text-lg  uppercase'>Add</button>
+							</div>
+						</form>
+        </div>
+       </div>
     </div>
   );
 };
