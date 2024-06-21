@@ -110,7 +110,7 @@ const Register = () => {
   return (
     <div className="bg-white flex max-w-md md:max-w-5xl lg:max-w-7xl p-1 md:p-10 lg:p-10">
        <Helmet>
-        <title>Be a Hand|Register</title>
+        <title>Register</title>
       </Helmet>
        <form onSubmit={handleSubmit(onSubmit)} className="w-4/5 md:w-3/5 lg:w-2/5 mx-auto p-3 bg-white shadow-md border lg:p-9 my-5 space-y-3 rounded">
        <h1 className="text-3xl text-[#313131] font-semibold text-center uppercase">Register</h1>

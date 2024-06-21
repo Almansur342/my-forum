@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import useRole from "../../../../Hooks/useRole";
+import { Helmet } from "react-helmet-async";
 
 const AddPost = () => {
   const {user}= useAuth()
@@ -99,6 +100,9 @@ const AddPost = () => {
   
   return (
     <div>
+      <Helmet>
+        <title>Add post</title>
+      </Helmet>
       {
         users?.badge === 'Bronze' && posts?.length >= 5 ? (
           <div className="mt-10">

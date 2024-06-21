@@ -1,6 +1,12 @@
+import { Helmet } from "react-helmet-async";
+
 const Statistics = () => {
   return (
-    <div className="my-9">
+    <>
+    <Helmet>
+        <title>Statistics</title>
+      </Helmet>
+     <div className="my-9">
       <h1 className="text-center text-3xl font-semibold">welcome to the <span className="text-[#F73E7B]">Dashboard</span></h1>
       <p className="text-center my-2 text-lg text-gray-600 font-medium">The user dashboard is your central hub for managing your activity on our platform. Here, you can easily navigate and utilize various features to enhance your experience.</p>
        <p className="text-2xl font-semibold">Key <span className="text-[#F73E7B]">Features: </span></p>
@@ -10,6 +16,7 @@ const Statistics = () => {
          <li className="text-lg font-medium ml-32 text-gray-600 ">Manage Your Profile: Update your personal information, change your profile picture, and adjust your settings to keep your profile up-to-date.</li>
        </ul>
     </div>
+    </>
   );
 };
 

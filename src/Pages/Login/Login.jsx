@@ -93,7 +93,7 @@ const Login = () => {
   return (
     <div className="bg-white flex max-w-md md:max-w-5xl lg:max-w-7xl p-1 md:p-10 lg:p-10">
        <Helmet>
-        <title>Be a Hand|Login</title>
+        <title>Login</title>
       </Helmet>
       <Lottie className="w-[300px]" animationData={log}></Lottie>
       <div className="bg-white shadow-md border w-4/5 md:w-4/5 lg:w-2/5 mx-auto p-3 lg:p-9 my-5">

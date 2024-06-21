@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { useMutation } from '@tanstack/react-query';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 const Anouncement = () => {
   const Toast = Swal.mixin({
     toast: true,
@@ -52,7 +53,10 @@ const Anouncement = () => {
   };
 
   return (
-    <div className="announcement-form">
+    <div>
+       <Helmet>
+        <title>Announcement</title>
+      </Helmet>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 rounded py-10 px-16  mt-6 max-w-4xl mx-auto">
         <h1 className="text-3xl mb-4 text-center font-semibold">Make an Announcement</h1>
 

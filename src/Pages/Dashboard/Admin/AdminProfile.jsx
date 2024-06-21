@@ -9,6 +9,7 @@ import { FaCommentDots, FaSearch, FaUser } from "react-icons/fa";
 import { PieChart, Pie,  Cell,  Legend } from 'recharts';
 import Swal from "sweetalert2";
 import useAxiosCommon from "../../../Hooks/useAxiosCommon";
+import { Helmet } from "react-helmet-async";
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const AdminProfile = () => {
@@ -102,6 +103,9 @@ const handleTag = async (e) => {
  
   return (
     <div>
+      <Helmet>
+        <title>Admin Profile</title>
+      </Helmet>
       <h1 className="text-3xl font-semibold text-center">Admin Profile</h1>
       <div className="flex items-center gap-5">
         <div className="flex items-center justify-center my-4">

@@ -112,7 +112,7 @@ const handlePaginationButton = (value) =>{
   return (
     <>
       <Helmet>
-        <title>My Listings</title>
+        <title>Manage reports</title>
       </Helmet>
 
       <div className='container mx-auto px-4 py-4 sm:px-8'>

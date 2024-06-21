@@ -5,6 +5,7 @@ import bronze from '../../../../assets/badge/bronge.png'
 import golden from '../../../../assets/badge/golden.jpg'
 import Cards from "../../../../components/Cards/Cards";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 
 const MyProfile = () => {
@@ -32,6 +33,9 @@ const MyProfile = () => {
   console.log(three_posts)
   return (
     <div>
+      <Helmet>
+        <title>My profile</title>
+      </Helmet>
      <div className="flex items-center justify-center my-4">
      <div className="max-w-lg p-8 items-center sm:flex sm:space-x-6 border shadow-2xl">
         <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">

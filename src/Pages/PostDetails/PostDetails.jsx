@@ -9,6 +9,7 @@ import { CiShare2 } from "react-icons/ci";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const PostDetails = () => {
   const {user} = useAuth()
@@ -110,6 +111,10 @@ const PostDetails = () => {
 
   if (isLoading) return <LoadingSpinner></LoadingSpinner>
   return (
+    <>
+     <Helmet>
+    <title>Post details</title>
+  </Helmet>
     <div className="container mx-auto px-4 mt-5">
       <div className="flex gap-7 border-2 border-red-400">
         <div className="w-2/5 shadow-xl p-5">
@@ -156,6 +161,7 @@ const PostDetails = () => {
 						</form>
        </div>
     </div>
+    </>
   );
 };
 
