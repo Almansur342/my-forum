@@ -20,6 +20,7 @@ import PostDetails from "../Pages/PostDetails/PostDetails";
 import ManageReport from "../Pages/Dashboard/Admin/ManageReport";
 import Membership from "../Pages/Membership/Membership";
 import Anouncement from "../Pages/Anouncement/Anouncement";
+import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -108,6 +109,14 @@ export const router = createBrowserRouter([
         element: <PrivateRoute>
           <AdminRoute>
            <Anouncement></Anouncement>
+          </AdminRoute>
+        </PrivateRoute>
+      },
+      {
+        path: 'admin-profile',
+        element: <PrivateRoute>
+          <AdminRoute>
+           <AdminProfile></AdminProfile>
           </AdminRoute>
         </PrivateRoute>
       },

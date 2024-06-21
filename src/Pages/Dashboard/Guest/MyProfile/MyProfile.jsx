@@ -40,12 +40,15 @@ const MyProfile = () => {
         <div className="flex flex-col space-y-4">
           <div>
             <h2 className="text-2xl font-semibold">{users?.name}</h2>
-            <div className="h-16 w-16 mt-3">
-             {
-              users?.badge == 'Bronze'? <img src={bronze} alt="" /> : <img src={golden} alt="" />
-             }
-              
-            </div>
+            <div className="h-16 w-16 mt-3 gap-4 flex items-center">
+            {
+             users?.badge == 'Bronze'? <h1 className="text-xl font-semibold">Bronze: </h1> : <h1 className="text-xl font-semibold">Gold: </h1>
+            }
+            {
+             users?.badge == 'Bronze'? <img src={bronze} alt="" /> : <img src={golden} alt="" />
+            }
+             
+           </div> 
           </div>
           <div className="space-y-1">
             <span className="flex items-center space-x-2">
