@@ -2,18 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "../../Hooks/useAxiosCommon";
 
 const Tags = () => {
-  // const tags = [
-  //   { name: "Programming" },
-  //   { name: "Work" },
-  //   { name: "Travel" },
-  //   { name: "Technology" },
-  //   { name: "Health" },
-  //   { name: "Finance" },
-  //   { name: "Business" },
-  //   { name: "Science" },
-  //   { name: "Lifestyle" },
-  //   { name: "History" }
-  // ];
 
   const axiosCommon = useAxiosCommon()
 

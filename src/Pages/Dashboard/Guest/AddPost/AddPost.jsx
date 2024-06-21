@@ -95,7 +95,16 @@ const AddPost = () => {
     enabled: !!user?.email,
   })
 
-  console.log(posts?.length,users?.badge)
+  
+  const axiosCommon = useAxiosCommon()
+
+  const {data:tags=[],} = useQuery({
+    queryKey: ['tags'],
+    queryFn: async()=>{
+    const {data} = await axiosCommon.get('/tags')
+    return data
+    }
+  })
  
   
   return (
@@ -159,19 +168,11 @@ const AddPost = () => {
               </label>
               <select className="select" value={tags_name} onChange={handleTags}>
                 <option disabled value="">Choose Tags</option>
-                <option value="Programming">Programming
-                </option>
-                <option value="Work">Work</option>
-                <option value="Travel">Travel</option>
-                <option value="Technology">Technology</option>
-                <option value="Health">Health</option>
-                <option value="Business">Business</option>
-                <option value="Science">Science</option>
-                <option value="Lifestyle">Lifestyle</option>
-                <option value="History">History</option>
+                {tags.map(tag => (
+                  <option key={tag._id} value={tag.name}>{tag.name}</option>
+                ))}
               </select>
-    
-              {errors.email && <span className="text-red-500">This field is required</span>}
+              {errors.tags_name && <span className="text-red-500">This field is required</span>}
             </div>
              
               <div className="form-control">

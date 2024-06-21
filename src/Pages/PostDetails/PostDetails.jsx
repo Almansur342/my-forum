@@ -10,6 +10,15 @@ import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+} from 'react-share';
+
 
 const PostDetails = () => {
   const {user} = useAuth()
@@ -144,9 +153,17 @@ const PostDetails = () => {
               <span className="text-4xl font-medium text-[#F73E7B]">{downVote}</span>
             </button>
           </div>
-          <div className="flex gap-6">
-          <button className="btn mt-6 bg-green-600 text-white text-base lg:text-lg mb-3 uppercase">Share</button>
-          </div>
+          <div className="flex gap-6 mt-6">
+              <FacebookShareButton url={window.location.href} quote={post_title} hashtag={`#${tags_name}`}>
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <TwitterShareButton url={window.location.href} title={post_title} hashtags={[tags_name]}>
+                <TwitterIcon size={32} round />
+              </TwitterShareButton>
+              <LinkedinShareButton url={window.location.href} title={post_title} summary={post_description}>
+                <LinkedinIcon size={32} round />
+              </LinkedinShareButton>
+            </div>
         </div>
       </div>
        <div className="my-6">
