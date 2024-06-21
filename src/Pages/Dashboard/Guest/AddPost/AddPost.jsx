@@ -209,7 +209,7 @@ const AddPost = () => {
               
           </div>
           <div className="form-control">
-            <button className="btn mt-6 bg-[#F73E7B] text-white text-base lg:text-lg mb-3 uppercase">Add</button>
+            <button type="submit" className="btn mt-6 bg-[#F73E7B] text-white text-base lg:text-lg mb-3 uppercase">Add</button>
           </div>
         </form>
         )

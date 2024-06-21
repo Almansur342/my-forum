@@ -99,7 +99,7 @@ const Anouncement = () => {
       
 
         <div className="form-group">
-          <button type="submit" className="btn bg-blue-500 text-white">Submit</button>
+        <button type="submit" className="btn mt-6 w-full bg-[#F73E7B] text-white text-base lg:text-lg mb-3 uppercase">Add</button>
         </div>
       </form>
     </div>
