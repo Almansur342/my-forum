@@ -10,7 +10,7 @@ import { useSearch } from "../../Hooks/useSearch";
 
 
 const AllPosts = forwardRef((props,ref) => {
-  const [itemsPerPage, setItemsPerPage] = useState(3)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
   const {searchQuery}= useSearch()
   // console.log(searchQuery)
   const [PageCount,setPageCount] = useState(0);
@@ -34,9 +34,9 @@ const AllPosts = forwardRef((props,ref) => {
   })
 
   const {data:getCount={}} = useQuery({
-    queryKey: ['getCount'],
+    queryKey: ['getCount',searchQuery],
     queryFn: async()=>{
-    const {data} = await axiosCommon.get('/post-count')
+    const {data} = await axiosCommon.get(`/post-count?search=${searchQuery}`)
     setPageCount(data.count)
     return data
     },

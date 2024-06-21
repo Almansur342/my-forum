@@ -4,9 +4,13 @@ import { Helmet } from "react-helmet-async";
 import ReportedComment from "../../../components/ReportedComment/ReportedComment";
 import LoadingSpinner from "../../../components/Spinner/LoadingSpinner";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 const ManageReport = () => {
   const axiosSecure = useAxiosSecure()
+  const [itemsPerPage, setItemsPerPage] = useState(1)
+  const [currentPage,setCurrentPage] = useState(1);
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -20,9 +24,16 @@ const ManageReport = () => {
   });
 
   const {data:reportComment=[],isLoading,refetch} = useQuery({
-    queryKey: ['reportComment'],
+    queryKey: ['reportComment',currentPage,itemsPerPage],
     queryFn: async()=>{
-    const {data} = await axiosSecure.get(`/reportComment`)
+    const {data} = await axiosSecure.get(`/reportComment?&page=${currentPage}&size=${itemsPerPage}`)
+    return data
+    },
+  })
+  const {data:reportCommentCount=[]} = useQuery({
+    queryKey: ['reportCommentCount'],
+    queryFn: async()=>{
+    const {data} = await axiosSecure.get(`/reportCommentCount`)
     return data
     },
   })
@@ -85,7 +96,18 @@ const handleWarning = async (id) => {
   }
 };
 
-  console.log(reportComment)
+const numberOfPage = Math.ceil(reportCommentCount.length / itemsPerPage)
+// console.log(page)
+const pages = [...Array(numberOfPage).keys()].map(
+  element => element + 1
+)
+// console.log(PageCount);
+
+// handle pagination buuton
+const handlePaginationButton = (value) =>{
+  setCurrentPage(value)
+}
+
   if(isLoading) return <LoadingSpinner></LoadingSpinner>
   return (
     <>
@@ -130,6 +152,38 @@ const handleWarning = async (id) => {
             </div>
           </div>
         </div>
+        <div className='flex justify-center mt-12'>
+        <button
+         disabled ={currentPage === 1}
+         onClick={()=> handlePaginationButton(currentPage - 1)}
+        className='px-4 py-2 mx-1 capitalize bg-[#F73E7B]  rounded-md disabled:cursor-not-allowed text-white font-medium hover:bg-[#F73E7B] '>
+          <div className='flex items-center -mx-1'>
+          <FaArrowLeftLong />
+            <span className='mx-1'>previous</span>
+          </div>
+        </button>
+
+        {pages.map(btnNum => (
+          <button
+          onClick={()=> handlePaginationButton(btnNum)}
+            key={btnNum}
+            className={`hidden ${currentPage===btnNum? 'bg-[#F73E7B] text-white font-medium' : 'border border-[#F73E7B]'} px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-[#F73E7B]  hover:text-white`}
+          >
+            {btnNum}
+          </button>
+        ))}
+
+        <button
+         disabled ={currentPage === numberOfPage}
+         onClick={()=> handlePaginationButton(currentPage + 1)}
+        className='px-4 py-2 mx-1 capitalize bg-[#F73E7B]  rounded-md disabled:cursor-not-allowed text-white font-medium hover:bg-[#F73E7B]'>
+          <div className='flex items-center -mx-1'>
+            <span className='mx-1'>Next</span>
+            <FaArrowRightLong />
+
+          </div>
+        </button>
+      </div>
       </div>
     </>
   );

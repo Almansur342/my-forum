@@ -5,8 +5,12 @@ import Swal from "sweetalert2";
 import LoadingSpinner from "../../../components/Spinner/LoadingSpinner";
 import UserDataRow from "../../../components/UserDataRow/UserDataRow";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useState } from "react";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 const ManageUsers = () => {
+  const [itemsPerPage, setItemsPerPage] = useState(2)
+  const [currentPage,setCurrentPage] = useState(1);
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -22,13 +26,33 @@ const ManageUsers = () => {
   const axiosSecure = useAxiosSecure()
 
   const {data:users=[], isLoading,refetch} = useQuery({
-    queryKey: ['users'],
+    queryKey: ['users',currentPage,itemsPerPage],
     queryFn: async()=>{
-    const {data} = await axiosSecure.get('/users')
+    const {data} = await axiosSecure.get(`/users?&page=${currentPage}&size=${itemsPerPage}`)
     return data
     }
   })
-  console.log(users);
+
+  const { data: userCount = [] } = useQuery({
+    queryKey: ['userCount'],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get('/userCount')
+      return data
+    },
+  })
+  
+  const numberOfPage = Math.ceil(userCount.length / itemsPerPage)
+  // console.log(page)
+  const pages = [...Array(numberOfPage).keys()].map(
+    element => element + 1
+  )
+  // console.log(PageCount);
+
+  // handle pagination buuton
+  const handlePaginationButton = (value) =>{
+    setCurrentPage(value)
+  }
+
   if(isLoading) return <LoadingSpinner></LoadingSpinner>
   return (
     <>
@@ -86,6 +110,38 @@ const ManageUsers = () => {
             </div>
           </div>
         </div>
+        <div className='flex justify-center mt-12'>
+        <button
+         disabled ={currentPage === 1}
+         onClick={()=> handlePaginationButton(currentPage - 1)}
+        className='px-4 py-2 mx-1 capitalize bg-[#F73E7B]  rounded-md disabled:cursor-not-allowed text-white font-medium hover:bg-[#F73E7B] '>
+          <div className='flex items-center -mx-1'>
+          <FaArrowLeftLong />
+            <span className='mx-1'>previous</span>
+          </div>
+        </button>
+
+        {pages.map(btnNum => (
+          <button
+          onClick={()=> handlePaginationButton(btnNum)}
+            key={btnNum}
+            className={`hidden ${currentPage===btnNum? 'bg-[#F73E7B] text-white font-medium' : 'border border-[#F73E7B]'} px-4 py-2 mx-1 transition-colors duration-300 transform  rounded-md sm:inline hover:bg-[#F73E7B]  hover:text-white`}
+          >
+            {btnNum}
+          </button>
+        ))}
+
+        <button
+         disabled ={currentPage === numberOfPage}
+         onClick={()=> handlePaginationButton(currentPage + 1)}
+        className='px-4 py-2 mx-1 capitalize bg-[#F73E7B]  rounded-md disabled:cursor-not-allowed text-white font-medium hover:bg-[#F73E7B]'>
+          <div className='flex items-center -mx-1'>
+            <span className='mx-1'>Next</span>
+            <FaArrowRightLong />
+
+          </div>
+        </button>
+      </div>
       </div>
     </>
   );
