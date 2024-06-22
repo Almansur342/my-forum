@@ -24,7 +24,7 @@ DOKY allows users to create, view, and manage posts, interact with other users t
 
 ## Live Site
 
-Visit [DOKY](https://www.example.com) to explore the live site.
+Visit [DOKY](https://heroic-kelpie-0a51f0.netlify.app/) to explore the live site.
 
 ## Admin Credentials
 
