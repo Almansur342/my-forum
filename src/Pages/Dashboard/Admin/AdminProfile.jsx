@@ -107,7 +107,7 @@ const handleTag = async (e) => {
         <title>Admin Profile</title>
       </Helmet>
       <h1 className="text-3xl font-semibold text-center">Admin Profile</h1>
-      <div className="flex items-center gap-5">
+      <div className="flex flex-col lg:flex-row md:flex-row items-center gap-5">
         <div className="flex items-center justify-center my-4">
           <div className="max-w-lg p-8 items-center sm:flex sm:space-x-6 border shadow-2xl">
             <div className="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
@@ -154,7 +154,7 @@ const handleTag = async (e) => {
           </div>
         </div>
       </div>
-       <div className="flex items-center gap-6">
+       <div className="flex flex-col lg:flex-row items-center gap-6">
        <div className="flex items-center justify-center">
         <PieChart width={400} height={400}>
           <Pie

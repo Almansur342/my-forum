@@ -68,7 +68,7 @@ const AllPosts = forwardRef((props,ref) => {
       </div>
       {
         posts && (
-          <div className="grid grid-cols-3 gap-5 container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 container mx-auto px-4">
             {
               posts.map(post =><Cards key={post._id} post={post}></Cards>)
             }

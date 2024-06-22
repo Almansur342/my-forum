@@ -10,9 +10,9 @@ const Membership = () => {
         <title>Membership</title>
       </Helmet>
       <div className='container mx-auto px-4 my-10'>
-        <h1 className='text-center font-bold text-3xl'>Join Our Exclusive <span className='text-[#F73E7B]'>Membership!</span></h1>
-        <p className='text-lg text-center text-gray-600 my-3 mb-6 font-medium'>Join our community today and elevate your experience! As a member, you will gain  access to premium features, <br /> including the ability to <span className='text-[#F73E7B] text-xl font-semibold'>post more than 5 times.</span> </p>
-        <div className='shadow-2xl w-3/5 mx-auto p-6 border-2'>
+        <h1 className='text-center font-bold text-xl lg:text-3xl'>Join Our Exclusive <span className='text-[#F73E7B]'>Membership!</span></h1>
+        <p className='text-base lg:text-lg text-center text-gray-600 my-3 mb-6 font-medium'>Join our community today and elevate your experience! As a member, you will gain  access to premium features, <br /> including the ability to <span className='text-[#F73E7B] text-xl font-semibold'>post more than 5 times.</span> </p>
+        <div className='shadow-2xl w-full lg:w-3/5 mx-auto p-6 border-2'>
           <Elements stripe={stripePromise}>
             <CheckoutForm></CheckoutForm>
           </Elements>

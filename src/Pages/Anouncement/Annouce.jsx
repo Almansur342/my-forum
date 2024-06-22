@@ -5,7 +5,7 @@ const Annouce = () => {
   return (
     <div className="container mx-auto px-4 my-10">
     <h1 className="text-3xl mb-4 text-[#F73E7B] text-center font-semibold">Announcements</h1>
-    <div className="grid grid-cols-2 gap-7">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
       {allAnnounce.map((announcement, index) => (
         <div key={index} className="shadow-2xl border-2 p-5">
           <div className="flex items-center mb-4 justify-center">

@@ -66,7 +66,7 @@ const MyProfile = () => {
       <p className="border-b-2 "></p>
      <div className="my-5">
        <h1 className="text-center font-semibold text-3xl">My newest three posts</h1>
-       <div className="grid grid-cols-2 mt-4 gap-5">
+       <div className="grid grid-cols-1 lg:grid-cols-2 mt-4 gap-5">
         {
           three_posts.map(single_post => <Cards key={single_post._id}  post ={single_post}></Cards>)
         }

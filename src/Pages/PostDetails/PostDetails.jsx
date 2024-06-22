@@ -125,8 +125,8 @@ const PostDetails = () => {
     <title>Post details</title>
   </Helmet>
     <div className="container mx-auto px-4 mt-5">
-      <div className="flex gap-7 border-2 border-red-400">
-        <div className="w-2/5 shadow-xl p-5">
+      <div className="flex flex-col lg:flex-row md:flex-row gap-7 border-2 border-red-400">
+        <div className="w-full lg:w-2/5 shadow-xl p-5">
           <div className=" p-2">
             <img src={Author?.image} alt="" className="w-32 h-32 mx-auto rounded-lg" />
             <div className="space-y-4 text-center divide-y dark:divide-gray-300">
@@ -139,9 +139,9 @@ const PostDetails = () => {
           <h1 className="text-2xl font-semibold">Time: <span className="text-[#F73E7B] text-xl">{timeAgo}</span></h1>
         </div>
         <p className="border-r-2 border-red-400"></p>
-        <div className="w-3/5 border shadow-xl p-5">
-          <p className="text-3xl font-bold text-[#F73E7B]">Title: <span className="text-black text-2xl">{post_title}</span></p>
-          <p className="text-xl font-bold text-[#F73E7B] mt-2">Description: <span className="text-black text-lg">{post_description}</span></p>
+        <div className="w-full lg:w-3/5 border shadow-xl p-5">
+          <p className="text-3xl font-bold text-[#F73E7B]">Title: <span className="text-black text-xl lg:-2xl">{post_title}</span></p>
+          <p className="text-base lg:text-xl font-bold text-[#F73E7B] mt-2">Description: <span className="text-black text-lg">{post_description}</span></p>
 
           <div className="flex space-x-5 mt-5  dark:text-gray-600">
             <button onClick={()=>handleVote("upVote")} type="button" className="flex items-center justify-center p-2 space-x-1.5">
@@ -167,13 +167,13 @@ const PostDetails = () => {
         </div>
       </div>
        <div className="my-6">
-         <h1 className="text-3xl mr-28 text-center mt-6 font-semibold ">Comment section</h1>
+         <h1 className="text-xl lg:text-3xl mr-28 text-center mt-6 font-semibold ">Comment section</h1>
          <form onSubmit={handleComment}>
 							<div className='flex mt-3'>
 								<input
 									type="text"
 									name="comment" placeholder="Write something here" className=" border flex-1 border-[#F73E7B] py-2 pl-10 text-base rounded-md sm:w-auto" />
-								<button className='px-3 py-1 rounded-md ml-3 bg-[#F73E7B] text-white text-base lg:text-lg  uppercase'>Comment</button>
+								<button className=' px-2 lg:px-3 py-1 rounded-md ml-3 bg-[#F73E7B] text-white text-xs lg:text-lg  uppercase'>Comment</button>
 							</div>
 						</form>
        </div>

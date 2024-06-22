@@ -154,13 +154,13 @@ const CheckoutForm = () => {
               },
             }}
           />
-          <div className='flex gap-10'>
-            <button disabled={!stripe || !clientSecret || processing} type='submit' className="px-10 rounded font-medium py-2 mt-6 bg-green-600 text-white text-base lg:text-lg mb-3 uppercase">Pay $50</button>
+          <div className='flex flex-col lg:flex-row gap-10'>
+            <button disabled={!stripe || !clientSecret || processing} type='submit' className="px-2 lg:px-10 rounded font-medium py-1 lg:py-2 mt-6 bg-green-600 text-white text-base lg:text-lg mb-3 uppercase">Pay $50</button>
             <button className="px-10 rounded py-2 mt-6 bg-[#F73E7B] text-white text-base lg:text-lg mb-3 uppercase font-medium">Cancel</button>
           </div>
         </form>
       ) : (
-        <p className='text-xl font-semibold text-[#F73E7B] text-center mt-5'>You are already a Gold member!</p>
+        <p className='text-xl font-semibold text-[#F73E7B] text-center mt-5'>You are a Gold member!</p>
       )}
       {cardError && <p className='text-lg text-red-500 text-center mt-5'>{cardError}</p>}
     </>

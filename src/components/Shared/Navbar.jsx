@@ -33,11 +33,11 @@ const Navbar = () => {
 
     <NavLink to='/membership' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#6d46c7]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>Membership</li></NavLink>
 
-    <NavLink to='/add' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#F63E7B]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>About Us</li></NavLink>
+    {/* <NavLink to='/add' className="font-bold text-base hover:text-[#F63E7B] hover:border-b border-b-[#b18b5e]"><li  className={({ isActive }) => isActive ? '  text-[#F63E7B]' : 'text-[#131313CC] hover:text-[#F63E7B]'}>About Us</li></NavLink> */}
     
     <div className="-mr-16 ml-5 relative">
-    <IoMdNotificationsOutline className="w-12 h-12" />
-     <p className="text-3xl font-semibold text-[#F63E7B] absolute -top-2 -right-1">{allAnnounce.length}</p>
+    <IoMdNotificationsOutline className="w-12 h-6 lg:h-12" />
+     <p className=" text-xl lg:text-3xl font-semibold text-[#F63E7B] absolute -top-2 -right-1">{allAnnounce.length}</p>
     </div>
 
     
