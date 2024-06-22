@@ -9,7 +9,7 @@ import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 const ManageReport = () => {
   const axiosSecure = useAxiosSecure()
-  const [itemsPerPage, setItemsPerPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
   const [currentPage,setCurrentPage] = useState(1);
   const Toast = Swal.mixin({
     toast: true,

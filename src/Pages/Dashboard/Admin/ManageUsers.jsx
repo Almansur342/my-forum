@@ -9,7 +9,7 @@ import { useState } from "react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 const ManageUsers = () => {
-  const [itemsPerPage, setItemsPerPage] = useState(2)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
   const [currentPage,setCurrentPage] = useState(1);
   const Toast = Swal.mixin({
     toast: true,
