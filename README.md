@@ -33,10 +33,15 @@ Visit [DOKY](https://heroic-kelpie-0a51f0.netlify.app/) to explore the live site
 
 ## Technologies Used
 
-- Frontend: React.js
-- Backend: Node.js, Express.js
-- Database: MongoDB
-- Authentication: JWT (JSON Web Tokens)
-- State Management: React Context API
-- UI Framework: Tailwind CSS
+- **React.js**
+- **Express.js**
+- **MongoDB**
+- **Firebase**
+- **Tailwind CSS**
+- **JWT token**
 
+ ## Run this project locally
+
+  - **Clone this project using git clone**
+  - **npm install**
+  - **npm run dev**
