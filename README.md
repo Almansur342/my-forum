@@ -39,7 +39,7 @@ Visit [DOKY](https://heroic-kelpie-0a51f0.netlify.app/) to explore the live site
 - **Firebase**
 - **Tailwind CSS**
 - **JWT token**
-
+- **Node.Js**
  ## Run this project locally
 
   - **Clone this project using git clone**
